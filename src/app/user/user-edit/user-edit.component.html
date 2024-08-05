@@ -1,0 +1,170 @@
+<div *ngIf="isLoading" class="overlay">
+  <div class="spinner-container">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</div>
+
+<!-- Edit profile START -->
+<div class="card bg-transparent border rounded-3">
+    <!-- Card header -->
+    <div class="card-header bg-transparent border-bottom">
+      <h3 class="card-header-title mb-0">Change Profile</h3>
+
+    </div>
+    <!-- Card body START -->
+    <div class="card-body">
+      <!-- Form -->
+        <!-- ChangeProfileUser picture -->
+        <form [formGroup]="editAvatarForm" (ngSubmit)="editAvatarProfile()">
+        <div class="col-12 justify-content-center align-items-center">
+<!--          <label class="form-label">Change avatar</label>-->
+
+          <div class="d-flex align-items-center">
+            <label class="position-relative me-4" for="uploadfile-1" title="Replace this pic">
+              <input id="uploadfile-1" formControlName="avatarSrcc" onchange = "luufile()"  (change)="editAvatar($event)" class="form-control d-none" type="file">
+
+
+              <!-- Avatar place holder -->
+              <span class="avatar avatar-xl">
+											<img id="avatar"  class="avatar-img rounded-circle border border-white border-3 shadow" src="{{editAvatarForm.get('avatarSrcc')?.value || 'https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png'}}" alt="">
+										</span>
+              <!-- Remove btn -->
+            </label>
+
+            <!-- Upload button -->
+
+           <button type="submit" class="btn btn-primary mb-0">Change</button>
+
+          </div>
+        </div>
+          <br>
+        </form>
+      <form class="row g-4" [formGroup]="editProfileForm" (ngSubmit)="editProfile()">
+        <!-- Full name -->
+        <div class="col-12">
+          <label class="form-label">Full name <span style="color: red">*</span></label>
+            <input type="text" class="form-control"  placeholder="Full Name" formControlName="fullName">
+
+            <p style="color: red" *ngIf="!editProfileForm.get('fullName')?.valid" >Can't be blank !</p>
+        </div>
+        <div class="col-12">
+          <label class="form-label">Birth Day <span style="color: red">*</span></label>
+            <input type="date" class="form-control"  placeholder="Birth Day" formControlName="dateOfBirth">
+
+            <p style="color: red" *ngIf="!editProfileForm.get('dateOfBirth')?.valid">Can't be blank !</p>
+        </div>
+
+        <!-- Username -->
+        <div class="col-md-6">
+          <label class="form-label">User name <span style="color: red">*</span></label>
+
+            <input type="text" class="form-control" placeholder="User Name" formControlName="userName">
+
+            <p style="color: red" *ngIf="!editProfileForm.get('userName')?.valid">* Can't be less than 6 characters!</p>
+
+        </div>
+
+        <!-- Email id -->
+        <div class="col-md-6">
+          <label class="form-label">Email <span style="color: red">*</span></label>
+
+          <input class="form-control" type="email" formControlName="email"  placeholder="Email">
+          <p style="color: red" *ngIf="!editProfileForm.get('email')?.valid">* Can't be blank !</p>
+        </div>
+
+        <!-- Phone number -->
+        <div class="col-md-6">
+          <label class="form-label">Phone number <span style="color: red">*</span></label>
+          <input type="text" class="form-control" formControlName="phone" placeholder="Phone number">
+
+          <p style="color: red" *ngIf="!editProfileForm.get('phone')?.valid">* Can't be blank !</p>
+        </div>
+
+        <!-- Location -->
+        <div class="col-md-6">
+          <label class="form-label">Location <span style="color: red">*</span></label>
+          <input class="form-control" type="text" formControlName="address" placeholder="Address">
+
+          <p style="color: red" *ngIf="!editProfileForm.get('address')?.valid">* Can't be blank !</p>
+        </div>
+
+        <!-- About me -->
+        <div class="col-12">
+          <label class="form-label">About me</label>
+          <textarea class="form-control" rows="3" formControlName="description"></textarea>
+        </div>
+
+        <!-- Education -->
+<!--        <div class="col-12">-->
+<!--          <label class="form-label">Education</label>-->
+<!--          <input class="form-control mb-2" type="text" value="Bachelor in Computer Graphics">-->
+<!--          -->
+<!--        </div>-->
+
+        <!-- Save button --><p style="color:red;">{{notiProfile}}</p>
+
+        <div class="d-sm-flex justify-content-end">
+
+          <button type="submit" class="btn btn-primary mb-0">Save changes</button>
+
+        </div>
+      </form>
+    </div>
+    <!-- Card body END -->
+  </div>
+  <!-- Edit profile END -->
+<br>
+<br>
+
+  <div class="row g-4 mt-3">
+
+    <!-- Password change START -->
+    <div class="col-lg-6" style="width: 1000px">
+      <form [formGroup]="editPassForm" (ngSubmit)="editPassword()">
+      <div class="card border bg-transparent rounded-3">
+
+        <!-- Card header -->
+        <div class="card-header bg-transparent border-bottom">
+          <h5 class="card-header-title mb-0">Update Password</h5>
+
+        </div>
+        <!-- Card body START -->
+        <div class="card-body">
+          <!-- Current password -->
+          <div class="mb-3">
+            <label class="form-label">Current password <span style="color: red">*</span></label>
+            <input class="form-control" type="password" formControlName="oldPassword"  placeholder="Enter current password">
+          </div>
+          <p *ngIf="editPassForm.get('oldPassword')?.errors && editPassForm.get('oldPassword')?.touched" style="color: red">* Can't be blank!</p>
+          <!-- New password -->
+          <div class="mb-3">
+            <label class="form-label"> Enter new password <span style="color: red">*</span></label>
+            <div class="input-group">
+              <input class="form-control" type="password" formControlName="newPassword" placeholder="Enter new password">
+              <span class="input-group-text p-0 bg-transparent">
+											<i class="far fa-eye cursor-pointer p-2 w-40px"></i>
+										</span>
+            </div>
+            <div class="rounded mt-1" id="psw-strength"></div>
+          </div>
+          <p *ngIf="editPassForm.get('newPassword')?.errors?.['required'] && editPassForm.get('newPassword')?.touched" style="color: red">* Can't be blank!</p>
+          <p *ngIf="editPassForm.get('newPassword')?.errors?.['minlength']"  style="color: red">* Can't be less than 6 characters!</p>
+          <!-- Confirm password -->
+          <div>
+            <label class="form-label">Confirm new password  <span style="color: red">*</span></label>
+            <input class="form-control" type="password" formControlName="confirmNewPassword" placeholder="Enter new password">
+          </div>
+          <p *ngIf="editPassForm.get('confirmNewPassword')?.errors && editPassForm.get('confirmNewPassword')?.touched" style="color: red">* Can't be blank!</p>
+          <!-- Button --><p style="color:red;">{{notiPass}}</p>
+          <div class="d-flex justify-content-end mt-4">
+            <button type="submit" class="btn btn-primary mb-0">Change password</button>
+          </div>
+        </div>
+        <!-- Card body END -->
+      </div>
+      </form>
+    </div>
+    <!-- Password change end -->
+  </div>

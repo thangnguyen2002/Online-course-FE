@@ -1,0 +1,443 @@
+<main>
+
+  <!-- Sidebar START -->
+  <nav class="navbar sidebar navbar-expand-xl navbar-dark bg-dark">
+    <div class="offcanvas offcanvas-start flex-row custom-scrollbar h-100" data-bs-backdrop="true" tabindex="-1" id="offcanvasSidebar">
+      <div class="offcanvas-body sidebar-content d-flex flex-column bg-dark">
+        <app-navbarleft></app-navbarleft>
+
+      </div>
+
+    </div>
+
+  </nav>
+  <!-- Sidebar END -->
+
+  <!-- Page content START -->
+  <div class="page-content">
+    <app-navbartop></app-navbartop>
+
+    <!-- Page main content START -->
+    <div class="page-content-wrapper border">
+
+      <!-- Title -->
+      <div class="row mb-3">
+        <div class="col-12 d-sm-flex justify-content-between align-items-center">
+          <h1 class="h3 mb-2 mb-sm-0">Course Details</h1>
+          <div>
+            <a href="/admin/courseCategory"  style="margin-right: 10px;margin-top: 6px" class="btn btn-sm btn-secondary">Back</a>
+          <a [href]="'/admin/createLesson/'+idCourse" *ngIf="!course.statusCourse" class="btn btn-sm btn-primary mb-0">Create Lesson</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row g-4">
+
+        <!-- Course information START -->
+        <div class="col-xxl-6">
+          <div class="card bg-transparent border rounded-3 h-100">
+
+            <!-- Catd header -->
+            <div class="card-header bg-light border-bottom">
+              <h5 class="card-header-title">{{course.nameCourse}}</h5>
+            </div>
+
+            <!-- Card body START -->
+            <div class="card-body">
+
+              <!-- Course image and info START -->
+              <div class="row g-4">
+                <!-- Course image -->
+                <div class="col-md-6">
+                  <img src="{{course.imgCourse}}" class="rounded" alt="">
+                </div>
+                <!-- Course info and avatar -->
+                <div class="col-md-6">
+                  <!-- Info -->
+                  <p class="mb-3">{{course.shortDescription}}</p>
+
+                  <!-- Price -->
+                  <h5 class="mb-3">{{course.priceCourse}}$</h5>
+
+                  <!-- Avatar -->
+                  <div class="d-sm-flex align-items-center">
+                    <!-- Avatar image -->
+                    <div class="avatar avatar-md">
+                      <img class="avatar-img rounded-circle" src="{{course.instructor.avatarInstructor}}" alt="avatar">
+                    </div>
+                    <div class="ms-sm-3 mt-2 mt-sm-0">
+                      <h6 class="mb-0"><a>{{course.instructor.nameInstructor}}</a></h6>
+                      <p class="mb-0 small">Experience {{course.instructor.experience}} Years</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Course image and info END -->
+
+              <!-- Information START -->
+              <div class="row mt-3">
+
+                <!-- Information item -->
+                <div class="col-md-6">
+                  <ul class="list-group list-group-borderless">
+                    <li class="list-group-item">
+                      <span>Duration:</span>
+                      <span class="h6 mb-0">{{course.timeCourse}} month</span>
+                    </li>
+
+                    <li class="list-group-item">
+                      <span>Total Enrolled:</span>
+                      <span class="h6 mb-0">{{course.enrolled}}</span>
+                    </li>
+
+                    <li class="list-group-item">
+                      <span>Certificate:</span>
+                      <span class="h6 mb-0">Yes</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Information item -->
+                <div class="col-md-6">
+                  <ul class="list-group list-group-borderless">
+<!--                    <li class="list-group-item">-->
+<!--                      <span>Skills:</span>-->
+<!--                      <span class="h6 mb-0">All level</span>-->
+<!--                    </li>-->
+
+                    <li class="list-group-item">
+                      <span>Total Lecture:</span>
+                      <span class="h6 mb-0">{{course.numLesson}}</span>
+                    </li>
+
+                    <li class="list-group-item">
+                      <span>Language:</span>
+                      <span class="h6 mb-0">Japanese</span>
+                    </li>
+
+                    <li class="list-group-item">
+                      <span>Review:</span>
+                      <span class="h6 mb-0">{{course.numRating}}<i class="fas fa-star text-warning ms-1"></i></span>
+                    </li>
+
+                  </ul>
+                </div>
+              </div>
+              <!-- Information END -->
+            </div>
+            <!-- Card body END -->
+          </div>
+        </div>
+        <!-- Course information END -->
+
+        <!-- Chart START -->
+        <div class="col-xxl-6">
+          <div class="row g-4">
+
+            <!-- Active student START -->
+            <div class="col-md-6 col-xxl-12">
+              <div class="card bg-transparent border overflow-hidden">
+                <!-- Card header -->
+                <div class="card-header bg-light border-bottom">
+                  <h5 class="card-header-title mb-0">Total course earning</h5>
+                </div>
+                <!-- Card body -->
+                <div class="card-body p-0">
+                  <div class="d-sm-flex justify-content-between p-4">
+                    <h4 class="text-blue mb-0">${{totalCourseEarning}}</h4>
+<!--                    <p class="mb-0"><span class="text-success me-1">0.20%<i class="bi bi-arrow-up"></i></span>vs last Week</p>-->
+                  </div>
+                  <!-- Apex chart -->
+                  <div id="activeChartstudent"></div>
+                </div>
+              </div>
+            </div>
+            <!-- Active student END -->
+
+            <!-- Enrolled START -->
+            <div class="col-md-6 col-xxl-12">
+              <div class="card bg-transparent border overflow-hidden">
+                <!-- Card header -->
+                <div class="card-header bg-light border-bottom">
+                  <h5 class="card-header-title mb-0">Total Enrollment</h5>
+                </div>
+                <!-- Card body -->
+                <div class="card-body p-0">
+                  <div class="d-sm-flex justify-content-between p-4">
+                    <h4 class="text-blue mb-0">{{enrollment}}</h4>
+<!--                    <p class="mb-0"><span class="text-success me-1">0.35%<i class="bi bi-arrow-up"></i></span>vs last Week</p>-->
+                  </div>
+                  <!-- Apex chart -->
+                  <div id="activeChartstudent2"></div>
+                </div>
+              </div>
+            </div>
+            <!-- Enrolled END -->
+
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="card bg-transparent border">
+
+            <!-- Card header START -->
+            <div class="card-header bg-light border-bottom">
+              <h5 class="mb-0">Lesson of course</h5>
+            </div>
+            <!-- Card header END -->
+
+            <!-- Card body START -->
+            <div class="card-body pb-0">
+              <!-- Table START -->
+              <div class="table-responsive border-0">
+                <table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+                  <!-- Table head -->
+                  <thead>
+                  <tr>
+                    <th scope="col" class="border-0 rounded-start">Name Lesson</th>
+                    <th scope="col" class="border-0">Content</th>
+                    <th scope="col" class="border-0">Time Lesson</th>
+                    <th scope="col" class="border-0 rounded-end">Action</th>
+                  </tr>
+                  </thead>
+
+                  <!-- Table body START -->
+                  <tbody>
+                  <!-- Student Comment -->
+                  <tr *ngFor="let l of lesson">
+                    <!-- Table data -->
+                    <td>
+                      <div class="d-flex align-items-center position-relative">
+                        <!-- Image -->
+                        <div class="avatar avatar-xs mb-2 mb-md-0">
+                          <img src="{{course.imgCourse}}" class="rounded-end" alt="">
+                        </div>
+                        <div class="mb-0 ms-2">
+                          <!-- Title -->
+                          <h6 class="mb-0"><a class="stretched-link">{{l.nameLesson}}</a></h6>
+                        </div>
+                      </div>
+                    </td>
+
+                    <!-- Table data -->
+                    <td class="text-center text-sm-start">
+                      <h6 class="mb-0">{{l.contentLesson}}</h6>
+                    </td>
+                    <td class="text-center text-sm-start">
+                      <h6 class="mb-0">{{l.timeLesson}}</h6>
+                    </td>
+                    <td>
+                      <a  class="btn btn-sm btn-info-soft mb-0" *ngIf="!course.statusCourse" [href]="'/admin/editLesson/'+l.idLesson">Edit</a>
+                      <button class="btn btn-sm btn-danger-soft me-1 mb-1 mb-md-0" *ngIf="!course.statusCourse" (click)="confirmDelete(l.idLesson)">Delete</button>
+                    </td>
+                  </tr>
+
+                  </tbody>
+                  <!-- Table body END -->
+                </table>
+              </div>
+              <!-- Table END -->
+            </div>
+            <!-- Card body END -->
+            <div class="card-header bg-light border-bottom">
+              <h5 class="mb-0">Quiz of course</h5>
+            </div>
+            <!-- Card header END -->
+
+            <!-- Card body START -->
+            <div class="card-body pb-0">
+              <!-- Table START -->
+              <div class="table-responsive border-0">
+                <table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+                  <!-- Table head -->
+                  <thead>
+                  <tr>
+                    <th scope="col" class="border-0 rounded-start">Name Quiz</th>
+                    <th scope="col" class="border-0">Number of Quiz</th>
+                    <th scope="col" class="border-0">Time Quiz</th>
+                    <th scope="col" class="border-0">Setting Quiz</th>
+                  </tr>
+                  </thead>
+
+                  <!-- Table body START -->
+                  <tbody>
+                  <!-- Student Comment -->
+                  <tr >
+                    <!-- Table data -->
+                    <td>
+                      <div class="d-flex align-items-center position-relative">
+                        <!-- Image -->
+                        <div class="mb-0 ms-2">
+                          <!-- Title -->
+                          <h6 class="mb-0"><a [href]="'/admin/quiz/'+course.idCourse" class="stretched-link">{{course.quiz.nameQuiz}}</a></h6>
+                        </div>
+                      </div>
+                    </td>
+
+                    <!-- Table data -->
+                    <td class="text-center text-sm-start">
+                      <h6 class="mb-0">{{course.quiz.numberOfQuiz}}</h6>
+                    </td>
+                    <td class="text-center text-sm-start">
+                      <h6 class="mb-0">{{course.quiz.timeQuiz}}'</h6>
+                    </td>
+                    <td class="text-center text-sm-start">
+                      <a *ngIf="!course.statusCourse"  class="btn btn-sm btn-primary-soft mb-0" data-bs-toggle="modal" data-bs-target="#setQuiz">Setting Quiz</a>
+                    </td>
+
+                  </tr>
+
+                  </tbody>
+                  <!-- Table body END -->
+                </table>
+              </div>
+              <!-- Table END -->
+            </div>
+            <!-- Card body END -->
+
+            <!-- Card footer START -->
+            <!-- Card footer END -->
+          </div>
+        </div>
+        <!-- Chart END -->
+        <!-- Student review START -->
+        <div class="col-12">
+          <div class="card bg-transparent border">
+
+            <!-- Card header START -->
+            <div class="card-header bg-light border-bottom">
+              <h5 class="mb-0">Students all Reviews</h5>
+            </div>
+            <!-- Card header END -->
+
+            <!-- Card body START -->
+            <div class="card-body pb-0">
+              <!-- Table START -->
+              <div class="table-responsive border-0">
+                <table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+                  <!-- Table head -->
+                  <thead>
+                  <tr>
+                    <th scope="col" class="border-0 rounded-start">Student Name</th>
+                    <th scope="col" class="border-0">Content</th>
+                    <th scope="col" class="border-0">Rating</th>
+                    <th scope="col" class="border-0 rounded-end">Action</th>
+                  </tr>
+                  </thead>
+
+                  <!-- Table body START -->
+                  <tbody>
+                  <!-- Student Comment -->
+                  <tr *ngFor="let r of rating">
+                    <!-- Table data -->
+                    <td>
+                      <div class="d-flex align-items-center position-relative">
+                        <!-- Image -->
+                        <div class="avatar avatar-xs mb-2 mb-md-0">
+                          <img src="{{r.appUser.avatarSrc}}" class="rounded-circle" alt="">
+                        </div>
+                        <div class="mb-0 ms-2">
+                          <!-- Title -->
+                          <h6 class="mb-0"><a class="stretched-link">{{r.appUser.fullName}}</a></h6>
+                        </div>
+                      </div>
+                    </td>
+
+                    <!-- Table data -->
+                    <td class="text-center text-sm-start">
+                      <h6 class="mb-0">{{r.contentRating}}</h6>
+                    </td>
+
+                    <!-- Table data -->
+                    <td>
+                      <ul class="list-inline mb-0">
+                        <li *ngFor='let in of counter(r.numStar) ;let i = index' class="list-inline-item me-0 small"><i
+                          class="fas fa-star text-warning"></i></li>
+                        <li *ngFor="let i of counter(5-r.numStar)" class="list-inline-item me-0 small"><i
+                          class="far fa-star text-warning"></i></li>
+                      </ul>
+                    </td>
+
+                    <!-- Table data -->
+                    <td>
+                      <a  class="btn btn-sm btn-info-soft mb-0" *ngIf="r.statusRating==false" (click)="approval(r.idRating)">Approval</a>
+                      <button  class="btn btn-sm btn-danger mb-0" *ngIf="r.statusRating==true" (click)="disable(r.idRating)">Disable</button>
+                      <button class="btn btn-sm btn-danger-soft me-1 mb-1 mb-md-0" (click)="deleteRating(r.idRating)">Delete</button>
+                    </td>
+                  </tr>
+
+                  </tbody>
+                  <!-- Table body END -->
+                </table>
+              </div>
+              <!-- Table END -->
+            </div>
+            <!-- Card body END -->
+
+            <!-- Card footer START -->
+            <div class="card-footer bg-transparent">
+              <!-- Pagination START -->
+              <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
+                <!-- Content -->
+                <p class="mb-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>
+                <!-- Pagination -->
+                <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
+                  <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+                    <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
+                    <li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
+                  </ul>
+                </nav>
+              </div>
+              <!-- Pagination END -->
+            </div>
+            <!-- Card footer END -->
+          </div>
+        </div>
+        <!-- Student review END -->
+
+      </div> <!-- Row END -->
+    </div>
+    <!-- Page main content END -->
+
+  </div>
+  <!-- Page content END -->
+  <div class="modal fade" id="setQuiz" tabindex="-1" aria-labelledby="addQuizLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-dark">
+          <h5 class="modal-title text-white" >Set Quiz</h5>
+          <button type="button" class="btn btn-sm btn-light mb-0" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="modal-body">
+          <form class="row text-start g-3"[formGroup]="editFormQuiz" (ngSubmit)="saveEditQuiz()">
+            <input class="form-control" type="text" formControlName="idQuiz" hidden>
+            <!-- Question -->
+            <div class="col-12">
+              <label class="form-label">Name Quiz</label>
+              <input class="form-control" type="text" formControlName="nameQuiz">
+              <p *ngIf="editFormQuiz.get('nameQuiz')?.errors && editFormQuiz.get('nameQuiz')?.touched" style="color: red">Not required</p>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Time Quiz</label>
+              <input class="form-control" type="number" formControlName="timeQuiz">
+              <p *ngIf="editFormQuiz.get('timeQuiz')?.errors?.['required'] && editFormQuiz.get('timeQuiz')?.touched" style="color: red">Not required</p>
+              <p *ngIf="editFormQuiz.get('timeQuiz')?.errors?.['min'] && editFormQuiz.get('timeQuiz')?.touched" style="color: red">Time must be greater than 0</p>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success my-0" data-bs-dismiss="modal" >Save Quiz</button>
+              <button type="button" class="btn btn-danger-soft my-0" data-bs-dismiss="modal">Close</button>
+            </div>
+            <!-- Answer options END -->
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+<!-- **************** MAIN CONTENT END **************** -->
+<!-- Back to top -->
+<div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>

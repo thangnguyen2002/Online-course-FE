@@ -1,0 +1,289 @@
+
+<div class="page-content">
+  <app-navbarleft></app-navbarleft>
+  <app-navbartop></app-navbartop>
+<div class="col-xl-9">
+  <!-- Card START -->
+  <div class="card border bg-transparent rounded-3">
+    <!-- Card header START -->
+    <div class="card-header bg-transparent border-bottom px-3">
+      <div class="row g-4 align-items-center">
+        <div class="col-md-2">
+          <img src="assets/images/courses/4by3/01.jpg" class="rounded-2" alt="Card image">
+        </div>
+        <div class="col-md-10">
+          <!-- Title -->
+          <h3 class="card-title mb-0"><a>{{course.quiz.nameQuiz}}</a></h3>
+          <a [href]="'/admin/courseDetail/'+course.idCourse"  class="btn btn-sm btn-secondary mb-0">Back</a>
+
+          <a *ngIf="!course.statusCourse" style="margin-left: 10px" class="btn btn-sm btn-success mb-0" data-bs-toggle="modal" data-bs-target="#addQuiz">Add New Question</a>
+        </div>
+      </div>
+    </div>
+    <!-- Card header END -->
+
+    <!-- Card body START -->
+    <div class="card-body p-4">
+
+      <!-- Accordion START -->
+      <div class="accordion accordion-icon accordion-bg-light" id="accordionExample">
+        <!-- Item -->
+        <div class="accordion-item mb-3" *ngFor="let q of question;let i = index">
+          <h6 class="accordion-header" id="headingOne">
+            <button class="accordion-button rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <span class="text-secondary fw-bold me-3">{{i+1}}</span>
+              <span class="fw-bold">{{q.contentQuestion}}</span>
+            </button>
+          </h6>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body mt-3">
+              <!-- Answer options -->
+              <p *ngIf="q.a==q.answer" style="color: blue" class="mb-3"><b class="text-dark">A: </b>{{q.a}}</p>
+              <p *ngIf="q.a!=q.answer" class="mb-3"><b class="text-dark">A: </b>{{q.a}}</p>
+              <p *ngIf="q.b==q.answer" style="color: blue" class="mb-3"><b class="text-dark">B: </b>{{q.b}}</p>
+              <p *ngIf="q.b!=q.answer" class="mb-3"><b class="text-dark">B: </b>{{q.b}}</p>
+              <p *ngIf="q.c==q.answer" style="color: blue" class="mb-3"><b class="text-dark">C: </b>{{q.c}}</p>
+              <p *ngIf="q.c!=q.answer" class="mb-3"><b class="text-dark">C: </b>{{q.c}}</p>
+              <p *ngIf="q.d==q.answer" style="color: blue" class="mb-3"><b class="text-dark">D: </b>{{q.d}}</p>
+              <p *ngIf="q.d!=q.answer" class="mb-3"><b class="text-dark">D: </b>{{q.d}}</p>
+
+              <!-- Button -->
+              <a class="btn btn-sm btn-success-soft mb-0" data-bs-toggle="modal" data-bs-target="#editQuestion" *ngIf="!course.statusCourse" (click)="setQues(q)">Edit</a>
+              <button class="btn btn-danger-soft btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#deleteQuestion" *ngIf="!course.statusCourse" (click)="setDeleQues(q)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Accordion END -->
+
+    </div>
+    <!-- Card body START -->
+  </div>
+  <!-- Card END -->
+
+  <!-- Student quiz result START -->
+  <div class="card border bg-transparent rounded-3 mt-4">
+    <!-- Card header START -->
+    <div class="card-header bg-transparent border-bottom">
+      <h3 class="mb-0">Student quiz result</h3>
+    </div>
+    <!-- Card header END -->
+
+    <!-- Card body START -->
+    <div class="card-body">
+
+      <!-- Student list table START -->
+      <div class="table-responsive border-0">
+        <table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+          <!-- Table head -->
+          <thead>
+          <tr>
+            <th scope="col" class="border-0 rounded-start">Student name</th>
+            <th scope="col" class="border-0">Course name</th>
+            <th scope="col" class="border-0">Date</th>
+            <th scope="col" class="border-0">Points</th>
+            <th scope="col" class="border-0 rounded-end">Action</th>
+          </tr>
+          </thead>
+
+          <!-- Table body START -->
+          <tbody>
+          <!-- Table item -->
+          <tr *ngFor="let s of scoreQuiz">
+            <!-- Table data -->
+            <td>
+              <div class="d-flex align-items-center">
+                <!-- Image -->
+                <div class="avatar avatar-sm me-2">
+                  <img src="{{s.appUser.avatarSrc}}" class="rounded" alt="">
+                </div>
+                <div>
+                  <!-- Title -->
+                  <h6 class="mb-0"><a >{{s.appUser.fullName}}</a></h6>
+                </div>
+              </div>
+            </td>
+
+            <!-- Table data -->
+            <td>
+              <h6 class="table-responsive-title mt-2 mt-md-0 mb-0"><a >{{course.nameCourse}}</a></h6>
+            </td>
+
+            <!-- Table data -->
+            <td>{{s.date}}</td>
+
+            <!-- Table data -->
+            <td>{{s.score}}</td>
+
+            <!-- Table data -->
+            <td>
+              <a  class="btn btn-success-soft btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Message"><i class="far fa-envelope"></i></a>
+            </td>
+          </tr>
+          </tbody>
+          <!-- Table body END -->
+        </table>
+      </div>
+      <!-- Student list table END -->
+
+    </div>
+    <!-- Card body START -->
+  </div>
+  <!-- Student quiz result END -->
+
+</div>
+  <!-- Edit course modal START -->
+  <div class="modal fade" id="editQuestion" tabindex="-1" aria-labelledby="editQuestionLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-dark">
+          <h5 class="modal-title text-white" id="editQuestionLabel">Edit Question</h5>
+          <button type="button" class="btn btn-sm btn-light mb-0" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="modal-body">
+          <form class="row text-start g-3" [formGroup]="editForm" (ngSubmit)="editQuestion()">
+            <div class="col-12" hidden>
+              <label class="form-label">Question</label>
+              <input class="form-control" type="text" formControlName="idQuestion">
+            </div>
+            <!-- Question -->
+            <div class="col-12">
+              <label class="form-label">Question</label>
+              <input class="form-control" type="text" formControlName="contentQuestion">
+              <p *ngIf="editForm.get('contentQuestion')?.errors && editForm.get('contentQuestion')?.touched" style="color: red">Not required</p>
+            </div>
+
+            <!-- Answer options START -->
+            <div class="col-6">
+              <label class="form-label">Option 1</label>
+              <input class="form-control" type="text" formControlName="a">
+              <p *ngIf="editForm.get('a')?.errors && editForm.get('a')?.touched" style="color: red">Not required</p>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label">Option 2</label>
+              <input class="form-control" type="text" formControlName="b">
+              <p *ngIf="editForm.get('b')?.errors && editForm.get('b')?.touched" style="color: red">Not required</p>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label">Option 3</label>
+              <input class="form-control" type="text" formControlName="c">
+              <p *ngIf="editForm.get('c')?.errors && editForm.get('c')?.touched" style="color: red">Not required</p>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label">Option 4</label>
+              <input class="form-control" type="text" formControlName="d">
+              <p *ngIf="editForm.get('d')?.errors && editForm.get('d')?.touched" style="color: red">Not required</p>
+            </div>
+            <div class="col-6">
+              <label class="form-label">Answer</label>
+              <select class="form-control"  formControlName="answer">
+                <option [value]="editForm.get('a')?.value">A</option>
+                <option [value]="editForm.get('b')?.value">B</option>
+                <option [value]="editForm.get('c')?.value">C</option>
+                <option [value]="editForm.get('d')?.value">D</option>
+              </select>
+              <p *ngIf="editForm.get('answer')?.errors && editForm.get('answer')?.touched" style="color: red">Not required</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger-soft my-0" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-success my-0" data-bs-dismiss="modal" >Save change</button>
+            </div>
+            <!-- Answer options END -->
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Edit course modal START -->
+  <!-- Add course modal START -->
+  <div class="modal fade" id="addQuiz" tabindex="-1" aria-labelledby="addQuizLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-dark">
+          <h5 class="modal-title text-white" id="addQuizLabel">Add New Quiz</h5>
+          <button type="button" class="btn btn-sm btn-light mb-0" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="modal-body">
+          <form class="row text-start g-3"[formGroup]="createForm" (ngSubmit)="createQuestion()">
+
+            <!-- Question -->
+            <div class="col-12">
+              <label class="form-label">Question</label>
+              <input class="form-control" type="text" placeholder="Write a question" formControlName="contentQuestion">
+              <p *ngIf="createForm.get('contentQuestion')?.errors && createForm.get('contentQuestion')?.touched" style="color: red">Not required</p>
+            </div>
+
+            <!-- Answer options START -->
+            <div class="col-6">
+              <label class="form-label">Option 1</label>
+              <input class="form-control" type="text" placeholder="Write a option" formControlName="a">
+              <p *ngIf="createForm.get('a')?.errors && createForm.get('a')?.touched" style="color: red">Not required</p>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label">Option 2</label>
+              <input class="form-control" type="text" placeholder="Write a option" formControlName="b">
+              <p *ngIf="createForm.get('b')?.errors && createForm.get('b')?.touched" style="color: red">Not required</p>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label">Option 3</label>
+              <input class="form-control" type="text" placeholder="Write a option" formControlName="c">
+              <p *ngIf="createForm.get('c')?.errors && createForm.get('c')?.touched" style="color: red">Not required</p>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label">Option 4</label>
+              <input class="form-control" type="text" placeholder="Write a option" formControlName="d">
+              <p *ngIf="createForm.get('d')?.errors && createForm.get('d')?.touched" style="color: red">Not required</p>
+            </div>
+            <div class="col-6">
+              <label class="form-label">Answer</label>
+              <select class="form-control"  formControlName="answer">
+                <option [value]="createForm.get('a')?.value">A</option>
+                <option [value]="createForm.get('b')?.value">B</option>
+                <option [value]="createForm.get('c')?.value">C</option>
+                <option [value]="createForm.get('d')?.value">D</option>
+              </select>
+              <p *ngIf="createForm.get('answer')?.errors && createForm.get('answer')?.touched" style="color: red">Not required</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger-soft my-0" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-success my-0" data-bs-dismiss="modal" >Add Quiz</button>
+            </div>
+            <!-- Answer options END -->
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Add course modal START -->
+  <div class="modal fade" id="deleteQuestion" tabindex="-1" aria-labelledby="editQuestionLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-dark">
+          <h5 class="modal-title text-white" >Delete Question</h5>
+          <button type="button" class="btn btn-sm btn-light mb-0" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="modal-body">
+          <div class="col-12">
+            <label class="form-label">{{deleQues.contentQuestion}}</label>
+          </div>
+          <form class="row text-start g-3">
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger my-0" data-bs-dismiss="modal" (click)="deleteQuestion()">Delete</button>
+              <button type="button" class="btn btn-danger-soft my-0" data-bs-dismiss="modal">Close</button>
+            </div>
+            <!-- Answer options END -->
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

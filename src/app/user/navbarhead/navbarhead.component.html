@@ -1,0 +1,130 @@
+<header class="navbar-light navbar-sticky">
+  <!-- Logo Nav START -->
+  <nav class="navbar navbar-expand-xl">
+    <div class="container">
+      <!-- Logo START -->
+      <a class="navbar-brand" href="">
+        <img class="light-mode-item navbar-brand-item" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Nintendo_Switch_Online_logo.svg/1280px-Nintendo_Switch_Online_logo.svg.png" alt="logo">
+        <img class="dark-mode-item navbar-brand-item" src="assets/images/logo-light.svg" alt="logo">
+      </a>
+      <!-- Logo END -->
+
+      <!-- Responsive navbar toggler -->
+      <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+              aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-animation">
+					<span></span>
+					<span></span>
+					<span></span>
+				</span>
+      </button>
+
+      <!-- Main navbar START -->
+
+      <!-- Main navbar END -->
+      <div class="ms-xl-auto" style="margin-right: 10px">
+        <ul class="navbar-nav flex-row align-items-center">
+
+          <!-- Notification dropdown START -->
+          <li class="nav-item ms-2 ms-md-3 dropdown">
+            <!-- Notification button -->
+            <a class="btn btn-light btn-round mb-0" href="#" role="button" data-bs-toggle="dropdown"
+               aria-expanded="false" data-bs-auto-close="outside">
+              <i class="bi bi-bell fa-fw"></i>
+            </a>
+            <!-- Notification dote -->
+            <span *ngIf="statusNoti" class="notif-badge animation-blink"></span>
+
+            <!-- Notification dropdown menu START -->
+            <div
+              class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-0 shadow-lg border-0">
+              <div class="card bg-transparent">
+                <div
+                  class="card-header bg-transparent border-bottom py-4 d-flex justify-content-between align-items-center">
+                  <h6 class="m-0">Notifications <span
+                    class="badge bg-danger bg-opacity-10 text-danger ms-2">{{notification.length}} new</span></h6>
+                  <a class="small" (click)="doneAll()">Clear all</a>
+                </div>
+                <div class="card-body p-0">
+                  <ul class="list-group list-unstyled list-group-flush">
+                    <!-- Notif item -->
+                    <li *ngFor="let n of notification">
+                      <a (click)="doneStatus(n)" class="list-group-item-action border-0 border-bottom d-flex p-3">
+                        <div class="me-3">
+                          <div class="avatar avatar-md">
+                            <img class="avatar-img rounded-circle" src="https://media.istockphoto.com/photos/wood-letter-block-in-word-admin-on-artificial-green-grass-background-picture-id1134467652" alt="avatar">
+                          </div>
+                        </div>
+                        <div>
+                          <p class="text-body small m-0"><b>Admin</b> {{n.title}} </p>
+                          <u class="small">{{n.timeNotification}}</u>
+                        </div>
+                      </a>
+                    </li>
+
+                  </ul>
+                </div>
+                <!-- Button -->
+                <div class="card-footer bg-transparent border-0 py-3 text-center position-relative">
+                  <a class="stretched-link">See all incoming activity</a>
+                </div>
+              </div>
+            </div>
+            <!-- Notification dropdown menu END -->
+          </li>
+          <!-- Notification dropdown END -->
+
+          <!-- Profile dropdown START -->
+          <!-- Profile dropdown END -->
+        </ul>
+      </div>
+      <!-- ChangeProfileUser START -->
+      <div class="dropdown ms-1 ms-lg-0">
+        <a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside"
+           data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
+          <img class="avatar-img rounded-circle" src="{{profile?.avatarSrc || 'https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png'}}" alt="avatar">
+        </a>
+        <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
+          <!-- ChangeProfileUser info -->
+          <li class="px-3">
+            <div class="d-flex align-items-center">
+              <!-- Avatar -->
+              <div class="avatar me-3">
+                <img class="avatar-img rounded-circle shadow" src="{{profile?.avatarSrc || 'https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png'}}" alt="avatar">
+              </div>
+              <div>
+                <a class="h6" href="#">{{profile.fullName}}</a>
+                <p class="small m-0">{{profile.email}}</p>
+              </div>
+            </div>
+          </li>
+          <hr>
+          <li>
+            <i style="color: green ;font-size: 20px;margin-left: 20px" class="bi bi-cash-coin"> </i><strong
+            style="margin-left: 10px;margin-bottom: 10px">  {{wallet?.money}} $</strong>
+
+          </li>
+          <li><a class="dropdown-item" href="/user/payment"><i class="bi bi-currency-dollar fa-fw me-2"></i>Recharge</a>
+          </li>
+          <hr>
+          <!-- Links -->
+          <li>
+            <a class="dropdown-item" href="/user"><i class="bi bi-person fa-fw me-2"></i>Dash Board</a>
+          </li>
+          <!--          <li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>-->
+          <!--          <li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>-->
+          <li>
+            <a class="dropdown-item bg-danger-soft-hover" (click)="signOut()"><i class="bi bi-power fa-fw me-2"></i>Sign
+              Out</a>
+          </li>
+
+          <!-- Dark mode switch START -->
+
+          <!-- Dark mode switch END -->
+        </ul>
+      </div>
+      <!-- ChangeProfileUser START -->
+    </div>
+  </nav>
+  <!-- Logo Nav END -->
+</header>

@@ -1,0 +1,111 @@
+<!-- Lớp phủ với spinner -->
+<div *ngIf="isLoading" class="overlay">
+  <div class="spinner-container">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</div>
+
+
+<div class="card bg-transparent border rounded-3">
+<div class="card-header bg-transparent border-bottom">
+    <h3 class="mb-0">Certificate of {{course.nameCourse}} Course</h3>
+</div>
+  <div class="card-header bg-transparent border-bottom">
+
+      <a class="btn btn-primary-soft btn-sm mb-0" *ngIf="checkCertificate" (click)="createCertificate()"> Save Certificate</a>
+      <a class="btn btn-primary-soft btn-sm mb-0" style="margin-left: 10px" (click)="generatePDF()" >Download PDF file</a>
+      <a class="btn btn-primary-soft btn-sm mb-0" style="margin-left: 10px" (click)="generatePNG()" >Download PNG file</a>
+
+  </div>
+<div class="card-body" id="contentToConvert">
+<div class="container pm-certificate-container">
+  <div class="outer-border"></div>
+  <div class="inner-border"></div>
+
+  <div class="pm-certificate-border col-xs-12">
+    <div class="row pm-certificate-header">
+      <div class="pm-certificate-title cursive col-xs-12 text-center">
+        <h2> CERTIFICATE OF COMPLETION </h2>
+      </div>
+    </div>
+
+    <div class="row pm-certificate-body">
+      <div class="pm-certificate-block">
+        <div class="col-xs-12">
+          <div class="row">
+            <div class="col-xs-2"><!-- LEAVE EMPTY --></div>
+            <div class="pm-certificate-name underline margin-0 col-xs-8 text-center">
+              <span class="pm-name-text bold">{{nameCertificate}}</span>
+            </div>
+            <div class="col-xs-2"><!-- LEAVE EMPTY --></div>
+          </div>
+        </div>
+
+        <div class="col-xs-12">
+          <div class="row">
+            <div class="col-xs-2"><!-- LEAVE EMPTY --></div>
+            <div class="pm-earned col-xs-8 text-center">
+              <span class="pm-earned-text padding-0 block cursive">has completed the course</span>
+              <span class="pm-credits-text block bold sans">{{course.nameCourse}}</span>
+            </div>
+            <div class="col-xs-2"><!-- LEAVE EMPTY --></div>
+            <div class="col-xs-12"></div>
+          </div>
+        </div>
+
+        <div class="col-xs-12">
+          <div class="row">
+            <div class="col-xs-2"><!-- LEAVE EMPTY --></div>
+            <div class="pm-course-title col-xs-8 text-center">
+              <span class="pm-earned-text block cursive">With score</span>
+            </div>
+            <div class="col-xs-2"><!-- LEAVE EMPTY --></div>
+          </div>
+        </div>
+
+        <div class="col-xs-12">
+          <div class="row">
+            <div class="col-xs-2"><!-- LEAVE EMPTY --></div>
+            <div class="pm-course-title underline col-xs-8 text-center">
+              <span class="pm-credits-text block bold sans">{{hightScore}}/10</span>
+            </div>
+            <div class="col-xs-2"><!-- LEAVE EMPTY --></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12">
+        <div class="row">
+          <div class="pm-certificate-footer">
+            <div class="col-xs-4 pm-certified col-xs-4 text-center">
+              <span class="pm-credits-text block sans">Eduport Center - Hoi Xuan Group</span>
+              <span class="pm-empty-space block underline"></span>
+              <span class="bold block"></span>
+            </div>
+            <div class="col-xs-4">
+              <!-- LEAVE EMPTY -->
+            </div>
+            <div class="col-xs-4 pm-certified col-xs-4 text-center">
+              <span class="pm-credits-text block sans">Date Completed</span>
+              <span class="pm-empty-space block underline"> {{date}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+</div>
+  <div class="d-flex justify-content-end mt-3 bg-transparent border" >
+    <a class="btn btn-primary  next-btn mb-0" href="/user/myCertificate" style="margin-right: 20px">My certificate</a>
+    <a class="btn btn-primary next-btn mb-0" [href]="'/user/course-resume/'+idCourse" type="submit">Back course</a>
+  </div>
+
+</div>
+
+
+

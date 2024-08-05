@@ -1,0 +1,157 @@
+
+
+  <!-- Course item START -->
+  <div class="card border">
+    <div class="card-header border-bottom">
+      <!-- Card START -->
+      <div class="card">
+        <div class="row g-0">
+          <div class="col-md-3">
+            <img src="{{course.imgCourse}}" class="rounded-2" alt="Card image">
+          </div>
+          <div class="col-md-9">
+            <div class="card-body">
+              <!-- Title -->
+              <h3 class="card-title"><a href="#">{{course.nameCourse}}</a></h3>
+
+              <!-- Info -->
+              <ul class="list-inline mb-2">
+<!--                <li class="list-inline-item h6 fw-light mb-1 mb-sm-0"><i class="far fa-clock text-danger me-2"></i>6h 56m</li>-->
+                <li class="list-inline-item h6 fw-light mb-1 mb-sm-0"><i class="fas fa-table text-orange me-2"></i>{{lessons.length}} lectures</li>
+<!--                <li class="list-inline-item h6 fw-light"><i class="fas fa-signal text-success me-2"></i>Beginner</li>-->
+              </ul>
+
+              <!-- button -->
+              <a [href]="'/user/learn/'+course.idCourse" class="btn btn-primary-soft btn-sm mb-0">Resume course</a>
+              <a style="margin-left: 10px" *ngIf="myCourse.completionProgress == 100"  [href]="'/user/quiz/'+course.idCourse" class="btn btn-primary-soft btn-sm mb-0">Quizzes</a>
+              <a style="margin-left: 10px" *ngIf="checkScoreQuiz()"  [href]="'/user/certificate/'+course.idCourse" class="btn btn-primary-soft btn-sm mb-0">Get certificate</a>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Card END -->
+    </div>
+
+    <div class="card-body">
+
+      <!-- Title -->
+      <h5>Course Curriculum</h5>
+      <div class="overflow-hidden">
+        <div class="d-flex justify-content-between">
+          <p class="mb-1 h6">{{completionProgress}}/{{lessons.length}} Completed</p>
+          <h6 class="mb-1 text-end">{{myCourse.completionProgress}}</h6>
+        </div>
+        <div class="progress progress-sm bg-primary bg-opacity-10">
+          <div class="progress-bar bg-primary aos" role="progressbar" data-aos="slide-right" data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-in-out" [ngStyle]="{width: myCourse.completionProgress + '%' }" aria-valuemin="0" aria-valuemax="100">
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion START -->
+      <div class="accordion accordion-icon accordion-bg-light" id="accordionExample2" *ngFor="let l of lessons">
+
+        <div class="accordion-item mb-3">
+                     <!-- Accordion body START -->
+            <div class="accordion-body mt-3">
+              <div class="vstack gap-3">
+                <div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="position-relative d-flex align-items-center">
+                      <a  class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
+                        <i class="fas fa-play me-0"></i>
+                      </a>
+                      <span class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-sm-400px">{{l.nameLesson}}</span>
+                    </div>
+                    <p class="mb-0 text-truncate" >{{l.timeLesson}}</p>
+                    <div class="col-1">
+                      <i *ngIf="checkLessonLearn(l.nameLesson) == true" style="font-size: 25px;color: green" class="fas fa-check "></i>
+
+                    </div>
+
+                  </div>
+
+                  <hr class="mb-0">
+                </div>
+
+              </div>
+            </div>
+            <!-- Accordion body END -->
+
+        </div>
+
+      </div>
+
+      <!-- Accordion END -->
+    </div>
+
+  </div>
+  <div class="card border bg-transparent rounded-3 mt-4">
+    <!-- Card header START -->
+    <div class="card-header bg-transparent border-bottom">
+      <h3 class="mb-0">Quiz result</h3>
+    </div>
+    <!-- Card header END -->
+
+    <!-- Card body START -->
+    <div class="card-body">
+
+      <!-- Student list table START -->
+      <div class="table-responsive border-0">
+        <table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+          <!-- Table head -->
+          <thead>
+          <tr>
+            <th scope="col" class="border-0 rounded-start">Student name</th>
+            <th scope="col" class="border-0">Course name</th>
+            <th scope="col" class="border-0">Date</th>
+            <th scope="col" class="border-0">Points</th>
+            <th scope="col" class="border-0 rounded-end">Action</th>
+          </tr>
+          </thead>
+
+          <!-- Table body START -->
+          <tbody>
+          <!-- Table item -->
+          <tr *ngFor="let s of scoreQuiz">
+            <!-- Table data -->
+            <td>
+              <div class="d-flex align-items-center">
+                <!-- Image -->
+                <div class="avatar avatar-sm me-2">
+                  <img src="{{s.appUser.avatarSrc}}" class="rounded" alt="">
+                </div>
+                <div>
+                  <!-- Title -->
+                  <h6 class="mb-0"><a >{{s.appUser.fullName}}</a></h6>
+                </div>
+              </div>
+            </td>
+
+            <!-- Table data -->
+            <td>
+              <h6 class="table-responsive-title mt-2 mt-md-0 mb-0"><a >{{course.nameCourse}}</a></h6>
+            </td>
+
+            <!-- Table data -->
+            <td>{{s.date}}</td>
+
+            <!-- Table data -->
+            <td>{{s.score}}</td>
+
+            <!-- Table data -->
+            <td>
+              <a  class="btn btn-success-soft btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Message"><i class="far fa-envelope"></i></a>
+            </td>
+          </tr>
+          </tbody>
+          <!-- Table body END -->
+        </table>
+      </div>
+      <!-- Student list table END -->
+
+    </div>
+    <!-- Card body START -->
+  </div>
+

@@ -1,0 +1,71 @@
+<nav class="navbar sidebar navbar-expand-xl navbar-dark bg-dark">
+
+  <!-- Navbar brand for xl START -->
+  <div class="d-flex align-items-center">
+    <a class="navbar-brand" href="">
+      <img class="navbar-brand-item" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Nintendo_Switch_Online_logo.svg/1280px-Nintendo_Switch_Online_logo.svg.png" alt="">
+    </a>
+  </div>
+  <!-- Navbar brand for xl END -->
+
+  <div class="offcanvas offcanvas-start flex-row custom-scrollbar h-100" data-bs-backdrop="true" tabindex="-1" id="offcanvasSidebar">
+    <div class="offcanvas-body sidebar-content d-flex flex-column bg-dark">
+
+      <!-- Sidebar menu START -->
+      <ul class="navbar-nav flex-column" id="navbar-sidebar">
+        <!-- Title -->
+        <li class="nav-item ms-2 my-2">Pages</li>
+
+        <!-- menu item 2 -->
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="collapse" href="#collapsepage" role="button" aria-expanded="false" aria-controls="collapsepage">
+            <i class="bi bi-basket fa-fw me-2 "></i>Courses
+          </a>
+          <!-- Submenu -->
+          <ul class="nav collapse flex-column" id="collapsepage" data-bs-parent="#navbar-sidebar">
+            <li class="nav-item"> <a class="nav-link" href="/admin/courseCategory">Course Category</a></li>
+          </ul>
+        </li>
+
+        <!-- Menu item 3 -->
+        <li class="nav-item"> <a class="nav-link" href="/admin/showuser"><i class="fas fa-user-graduate fa-fw me-2"></i>Students</a></li>
+
+        <!-- Menu item 4 -->
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="collapse" href="#collapseinstructors" role="button" aria-expanded="false" aria-controls="collapseinstructors">
+            <i class="fas fa-user-tie fa-fw me-2"></i>Instructors
+          </a>
+          <!-- Submenu -->
+          <ul class="nav collapse flex-column" id="collapseinstructors" data-bs-parent="#navbar-sidebar">
+            <li class="nav-item"> <a class="nav-link" href="/admin/instructor">Instructors</a></li>
+          </ul>
+        </li>
+
+        <!-- Menu item 5 -->
+        <li class="nav-item"> <a class="nav-link" href="/admin/allRating"><i class="far fa-comment-dots fa-fw me-2"></i>Reviews</a></li>
+
+        <!-- Menu item 6 -->
+        <li class="nav-item"> <a class="nav-link" href="/admin/earning"><i class="far fa-chart-bar fa-fw me-2"></i>Earnings</a></li>
+
+        <!-- Menu item 7 -->
+        <!-- Menu item 8 -->
+
+      </ul>
+      <!-- Sidebar menu end -->
+
+      <!-- Sidebar footer START -->
+      <div class="px-3 mt-auto pt-3">
+        <div class="d-flex align-items-center justify-content-between text-primary-hover">
+          <a class="h5 mb-0 text-body" href="" data-bs-toggle="tooltip" data-bs-placement="top" title="Home">
+            <i class="bi bi-globe"></i>
+          </a>
+          <a class="h5 mb-0 text-body" (click)="signOut()" data-bs-toggle="tooltip" data-bs-placement="top" title="Sign out">
+            <i class="bi bi-power"></i>
+          </a>
+        </div>
+      </div>
+      <!-- Sidebar footer END -->
+
+    </div>
+  </div>
+</nav>

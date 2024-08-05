@@ -1,0 +1,229 @@
+<!-- **************** MAIN CONTENT START **************** -->
+<!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
+<!--<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>-->
+<!--<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>-->
+<main>
+
+  <!-- Sidebar START -->
+  <app-navbarleft></app-navbarleft>
+  <!-- Sidebar END -->
+
+  <!-- Page content START -->
+  <div class="page-content">
+
+    <!-- Top bar START -->
+    <app-navbartop></app-navbartop>
+    <!-- Top bar END -->
+
+    <!-- Page main content START -->
+    <div class="page-content-wrapper border">
+
+      <!-- Title -->
+      <div class="row">
+        <div class="col-12">
+          <h1 class="h3 mb-2 mb-sm-0">Students</h1>
+        </div>
+      </div>
+
+      <div class="card bg-transparent">
+      </div>
+      <!-- Card header START -->
+      <div class="card-header bg-transparent border-bottom px-0">
+        <!-- Search and select START -->
+        <div class="row g-3 align-items-center justify-content-between">
+
+          <!-- Search bar -->
+          <div class="col-md-8">
+            <form class="rounded position-relative">
+              <input class="form-control bg-transparent" type="search" placeholder="Search" aria-label="Search"
+                     ng-model="usersSearch" #input (input)="search(input.value)">
+              <button class="btn bg-transparent px-2 py-0 position-absolute top-50 end-0 translate-middle-y"
+                      type="submit"><i class="fas fa-search fs-6 "></i></button>
+            </form>
+          </div>
+
+          <!-- Tab button -->
+          <div class="col-md-3">
+            <!-- Tabs START -->
+            <ul class="list-inline mb-0 nav nav-pills nav-pill-dark-soft border-0 justify-content-end" id="pills-tab"
+                role="tablist">
+              <!-- Grid tab -->
+              <li class="nav-item">
+                <a href="#nav-preview-tab-1" class="nav-link mb-0 me-2 active" data-bs-toggle="tab">
+                  <i class="fas fa-fw fa-th-large"></i>
+                </a>
+              </li>
+              <!-- List tab -->
+              <li class="nav-item">
+                <a href="#nav-html-tab-1" class="nav-link mb-0" data-bs-toggle="tab">
+                  <i class="fas fa-fw fa-list-ul"></i>
+                </a>
+              </li>
+            </ul>
+            <!-- Tabs end -->
+          </div>
+        </div>
+        <!-- Search and select END -->
+      </div>
+      <!-- Card header END -->
+
+
+      <!-- Card body START -->
+      <section class="section pt-5 pb-5 products-listing">
+        <div class="card-body px-0">
+
+          <!-- Tabs content START -->
+          <div class="tab-content">
+
+            <!-- Tabs content item START -->
+            <div class="tab-pane fade show active" id="nav-preview-tab-1">
+              <div class="row g-4">
+
+
+                <!-- Card item START -->
+                <div class="col-md-6 col-xxl-4"
+                     *ngFor="let t of appUsers | paginate: {itemsPerPage: 6, currentPage: p}">
+                  <div class="card bg-transparent border h-100">
+                    <!-- Card header -->
+                    <div class="card-header bg-transparent border-bottom d-flex justify-content-between">
+                      <div class="d-sm-flex align-items-center">
+                        <!-- Avatar -->
+                        <div class="avatar avatar-md flex-shrink-0">
+                          <img class="avatar-img rounded-circle" src="{{t.avatarSrc}}" alt="avatar">
+                        </div>
+                        <!-- Info -->
+                        <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
+
+                          <h5 *ngIf="t.status == true "><a href="#aboutModal" class="mb-0" data-bs-toggle="modal" data-bs-target="#myModal"
+                                 (click)="setInst(t)">{{t.fullName}} </a></h5>
+                          <h5 *ngIf="t.status == false "><a style="color:red;" href="#aboutModal" class="mb-0" data-bs-toggle="modal" data-bs-target="#myModal"
+                                 (click)="setInst(t)">{{t.fullName}} </a></h5>
+                          <span class="text-body small"><i
+                            class="fas fa-fw fa-map-marker-alt me-1 mt-1"></i>{{t.address}}</span>
+                        </div>
+                      </div>
+
+                      <!-- Edit dropdown -->
+                      <!--                      <div class="dropdown text-end">-->
+                      <!--                        <a href="#" class="btn btn-sm btn-light btn-round small mb-0" role="button" id="dropdownShare2" data-bs-toggle="dropdown" aria-expanded="false">-->
+                      <!--                          <i class="bi bi-three-dots fa-fw"></i>-->
+                      <!--                        </a>-->
+                      <!--                        &lt;!&ndash; dropdown button &ndash;&gt;-->
+                      <!--                        <ul class="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded" aria-labelledby="dropdownShare2">-->
+                      <!--                          <li><a class="dropdown-item" href="#"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit</a></li>-->
+                      <!--                          <li><a class="dropdown-item" href="#"><i class="bi bi-trash fa-fw me-2"></i>Remove</a></li>-->
+                      <!--                        </ul>-->
+                      <!--                      </div>-->
+                    </div>
+
+                    <div class="card-body">
+                      <!-- Payments -->
+                      <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex align-items-center">
+                          <div class="icon-md bg-success bg-opacity-10 text-success rounded-circle flex-shrink-0"><i
+                            class="bi bi-currency-dollar fa-fw"></i></div>
+                          <h6 class="mb-0 ms-2 fw-light">Payments</h6>
+                        </div>
+                        <span class="mb-0 fw-bold">$6,205</span>
+                      </div>
+
+                      <!-- Total courses -->
+                      <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex align-items-center">
+                          <div class="icon-md bg-purple bg-opacity-10 text-purple rounded-circle flex-shrink-0"><i
+                            class="fas fa-book fa-fw"></i></div>
+                          <h6 class="mb-0 ms-2 fw-light">Total Course</h6>
+                        </div>
+                        <span class="mb-0 fw-bold">21</span>
+                      </div>
+
+                      <!-- Progress -->
+<!--                      <div class="overflow-hidden">-->
+<!--                        <h6 class="mb-0">85%</h6>-->
+<!--                        <div class="progress progress-sm bg-primary bg-opacity-10">-->
+<!--                          <div class="progress-bar bg-primary aos" role="progressbar" data-aos="slide-right"-->
+<!--                               data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-in-out"-->
+<!--                               style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+                    </div>
+                  </div>
+
+                  <!-- Card footer START -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+
+
+        <pagination-controls class="btn btn-sm btn-outline-primary" class="myPagination" (pageChange)="p = $event" style="text-align: center">
+        </pagination-controls>
+      </section>
+    </div>
+  </div>
+</main>
+<!-- **************** MAIN CONTENT END **************** -->
+
+<!-- Back to top -->
+<div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
+
+<!-- Bootstrap JS -->
+<script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Vendors -->
+<script src="assets/vendor/aos/aos.js"></script>
+<script src="assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.html"></script>
+
+<!-- Template Functions -->
+<script src="assets/js/functions.js"></script>
+
+<div class="card-footer bg-transparent pt-0 px-0">
+  <!-- Pagination START -->
+  <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
+    <!-- Content -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Thông Tin Cá Nhân</h4>
+          </div>
+          <div class="modal-body">
+            <img src="{{profileUser?.avatarSrc}}" name="aboutme" width="140" height="140" border="0"
+                 class="img-circle">
+            <h3 class="media-heading">{{profileUser?.fullName}} </h3>
+
+            <hr>
+
+            <p class="text-left"><strong>Mail: {{profileUser?.email}} </strong><br></p>
+            <p class="text-left"><strong>Address: {{profileUser?.address}} </strong><br></p>
+            <p class="text-left"><strong>Phone: {{profileUser?.phone}} </strong><br></p>
+            <p class="text-left"><strong>DateOfBirth: {{profileUser?.dateOfBirth}} </strong><br></p>
+            <br>
+
+
+          </div>
+
+          <div class="modal-footer">
+            <button *ngIf="profileUser?.status==true" class="btn btn-sm btn-danger mb-0"
+                    data-bs-dismiss="modal" (click)="disableUser(profileUser?.idUser)">Disable
+            </button>
+            <button *ngIf="profileUser?.status==false" class="btn btn-sm btn-primary mb-0"
+                    data-bs-dismiss="modal" (click)="activatedUser(profileUser?.idUser)">Activated
+            </button>
+            <button type="button" class="btn btn-sm btn-danger-soft mb-0" data-bs-dismiss="modal">Close</button>
+
+
+          </div>
+
+        </div>
+
+
+      </div>
+      <!-- Pagination END -->
+    </div>
+  </div>
+</div>

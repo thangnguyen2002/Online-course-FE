@@ -1,0 +1,139 @@
+<main>
+  <div *ngIf="isLoading" class="overlay">
+    <div class="spinner-container">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================
+  Page Banner START -->
+  <section class="py-0 bg-blue h-100px align-items-center d-flex h-200px rounded-0" style="background:url(assets/images/pattern/04.png) no-repeat center center; background-size:cover;">
+    <!-- Main banner background image -->
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <!-- Title -->
+          <h1 class="text-white">Edit Course</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- =======================
+  Page Banner END -->
+
+  <!-- =======================
+  Steps START -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto text-center">
+          <!-- Content -->
+        </div>
+      </div>
+
+      <div class="card bg-transparent border rounded-3 mb-5">
+        <div id="stepper" class="bs-stepper stepper-outline">
+          <!-- Card header -->
+          <div class="card-header bg-light border-bottom px-lg-5">
+            <!-- Step Buttons START -->
+          </div>
+
+          <!-- Card body START -->
+          <div class="card-body">
+            <!-- Step content START -->
+            <div class="bs-stepper-content">
+              <form [formGroup]="editForm" (ngSubmit)="saveCourse(uploadFile1.files)">
+
+                <!-- Step 1 content START -->
+                <div id="step-1" role="tabpanel" class="content " >
+                  <!-- Title -->
+                  <h4>Course details</h4>
+
+                  <hr> <!-- Divider -->
+
+                  <!-- Basic information START -->
+                  <div class="row g-4">
+                    <div class="col-12" hidden>
+                      <label class="form-label">IdCourse</label>
+                      <input class="form-control" type="text" formControlName="idCourse">
+                    </div>
+                    <!-- Course title -->
+                    <div class="col-12">
+                      <label class="form-label">Course Name <a style="color:red;">*</a></label>
+                      <input class="form-control" type="text" placeholder="Enter course title" formControlName="nameCourse">
+                      <p *ngIf="editForm.get('nameCourse')?.errors && editForm.get('nameCourse')?.touched" style="color: red">Not required</p>
+                    </div>
+
+                    <!-- Short description -->
+                    <div class="col-12">
+                      <label class="form-label">Short description <a style="color:red;">*</a></label>
+                      <textarea class="form-control" rows="2" placeholder="Enter keywords" formControlName="shortDescription"></textarea>
+                      <p *ngIf="editForm.get('shortDescription')?.errors && editForm.get('shortDescription')?.touched" style="color: red">Not required</p>
+                    </div>
+                    <!-- Course Img -->
+                    <div class="col-md-6">
+                      <label class="form-label">Course Image <a style="color:red;">* Only accept .Jpg and .Png files</a></label>
+                      <input type="file" #uploadFile1 class="form-control" placeholder="Enter course image" >
+                    </div>
+                    <!-- Course price -->
+                    <div class="col-md-6">
+                      <label class="form-label">Course price ($) <a style="color:red;">*</a></label>
+                      <input type="number" class="form-control" placeholder="Enter course price" formControlName="priceCourse">
+                      <p *ngIf="editForm.get('priceCourse')?.errors?.['required'] && editForm.get('priceCourse')?.touched" style="color: red">Not required</p>
+                      <p *ngIf="editForm.get('priceCourse')?.errors?.['min'] && editForm.get('priceCourse')?.touched"  style="color: red">Course's price must be greater than 0 </p>
+
+                    </div>
+                    <!-- Course time -->
+                    <div class="col-md-6">
+                      <label class="form-label">Course time <a style="color:red;">*</a></label>
+                      <input class="form-control" type="number" placeholder="Enter course time" formControlName="timeCourse">
+                      <p *ngIf="editForm.get('timeCourse')?.errors?.['required'] && editForm.get('timeCourse')?.touched" style="color: red">Not required</p>
+                      <p *ngIf="editForm.get('timeCourse')?.errors?.['min'] && editForm.get('timeCourse')?.touched"  style="color: red">Course duration must be greater than 0 </p>
+
+
+                    </div>
+                    <!--                    CourseInstructor-->
+                    <div class="col-md-6" >
+                      <label class="form-label">Course Instructor <a style="color:red;">*</a></label >
+                      <select class="form-select js-choice border-1 z-index-9 bg-transparent" aria-label=".form-select-sm" data-search-enabled="true" formControlName="instructor" >
+                        <option *ngFor="let i of instructor" [value]="i.idInstructor">{{i.nameInstructor}}</option>
+                      </select>
+                    </div>
+
+                    <!-- Course description -->
+                    <div class="col-12">
+                      <label class="form-label">Add description <a style="color:red;">*</a></label>
+                      <!-- Editor toolbar -->
+                      <div>
+                        <textarea  class="form-control" rows="3" formControlName="descriptionCourse"></textarea>
+                        <p *ngIf="editForm.get('descriptionCourse')?.errors && editForm.get('descriptionCourse')?.touched" style="color: red">Not required</p>
+                      </div>
+                      <!-- Main toolbar -->
+                    </div>
+
+
+                    <!-- Step 1 button -->
+                    <div class="d-flex justify-content-end mt-3">
+
+                      <a class="btn btn-secondary next-btn mb-0" href="/admin/courseCategory">Back</a>
+                      <button class="btn btn-primary next-btn mb-0" type="submit">Save</button>
+                    </div>
+
+                  </div>
+                  <!-- Basic information START -->
+                </div>
+                <!-- Step 1 content END -->
+              </form>
+            </div>
+          </div>
+          <!-- Card body END -->
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- =======================
+  Steps END -->
+
+</main>

@@ -1,0 +1,286 @@
+<div class="page-content">
+  <app-navbarleft></app-navbarleft>
+  <app-navbartop></app-navbartop>
+<!-- Page main content START -->
+<div class="page-content-wrapper border">
+  <div class="row mb-3">
+    <div class="col-12 d-sm-flex justify-content-between align-items-center">
+      <h1 class="h3 mb-2 mb-sm-0">Instructors<span class="badge bg-orange bg-opacity-10 text-orange">{{page.totalElements}}</span></h1>
+      <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#createInstructor" class="btn btn-sm btn-primary mb-0">Create a Instructors</a>
+    </div>
+  </div>
+
+  <!-- Card START -->
+  <div class="card bg-transparent">
+
+    <!-- Card header START -->
+    <div class="card-header bg-transparent border-bottom px-0">
+      <!-- Search and select START -->
+      <div class="row g-3 align-items-center justify-content-between">
+
+        <!-- Search bar -->
+        <div class="col-md-8">
+          <form class="rounded position-relative">
+            <input class="form-control bg-transparent" #input  type="search" placeholder="Search" aria-label="Search" #search (input)="getAll(page.number,search.value)">
+            <button class="btn bg-transparent px-2 py-0 position-absolute top-50 end-0 translate-middle-y" type="submit"><i class="fas fa-search fs-6 "></i></button>
+          </form>
+        </div>
+
+        <!-- Tab buttons -->
+        <div class="col-md-3">
+<!--         create-->
+          <!-- Tabs end -->
+        </div>
+      </div>
+      <!-- Search and select END -->
+    </div>
+    <!-- Card header END -->
+
+    <!-- Card body START -->
+    <div class="card-body px-0">
+      <!-- Tabs content START -->
+      <div class="tab-content">
+
+        <!-- Tabs content item START -->
+        <div class="tab-pane fade show active" id="nav-preview-tab-1">
+          <div class="row g-4">
+
+            <!-- Card item START -->
+            <div class="col-md-6 col-xxl-4" *ngFor="let i of instructor">
+              <div class="card bg-transparent border h-100">
+                <!-- Card header -->
+                <div class="card-header bg-transparent border-bottom d-flex align-items-sm-center justify-content-between">
+                  <div class="d-sm-flex align-items-center">
+                    <!-- Avatar -->
+                    <div class="avatar avatar-md flex-shrink-0">
+                      <img class="avatar-img rounded-circle" src="{{i.avatarInstructor}}" alt="avatar">
+                    </div>
+                    <!-- Info -->
+                    <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
+                      <h5 class="mb-0"><a>{{i.nameInstructor}}</a></h5>
+                      <p class="mb-0 small">Phone :{{i.phoneInstructor}}</p>
+                      <p class="mb-0 small">Mail :{{i.emailInstructor}}</p>
+                    </div>
+                  </div>
+
+                  <!-- Edit dropdown -->
+                  <div class="dropdown">
+                    <a href="#" class="btn btn-sm btn-light btn-round small mb-0" role="button" id="dropdownShare1" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-three-dots fa-fw"></i>
+                    </a>
+                    <!-- dropdown button -->
+                    <ul class="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded" aria-labelledby="dropdownShare1">
+                      <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editInstructor" (click)="setInst(i)"><i class="bi bi-pencil-square fa-fw me-2"  ></i>Edit</a></li>
+<!--                      <li><a class="dropdown-item" (click)="delete(i.idInstructor)"><i class="bi bi-trash fa-fw me-2"></i>Remove</a></li>-->
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="card-body">
+                  <!-- Total students -->
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="d-flex align-items-center">
+                      <div class="icon-md bg-orange bg-opacity-10 text-orange rounded-circle flex-shrink-0"><i class="fas fa-user-graduate fa-fw"></i></div>
+                      <h6 class="mb-0 ms-2 fw-light">Experience</h6>
+                    </div>
+                    <span class="mb-0 fw-bold">{{i.experience}} years</span>
+                  </div>
+
+                  <!-- Total courses -->
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                      <div class="icon-md bg-purple bg-opacity-10 text-purple rounded-circle flex-shrink-0"><i class="fas fa-book fa-fw"></i></div>
+                      <h6 class="mb-0 ms-2 fw-light">Total Courses</h6>
+                    </div>
+                    <span class="mb-0 fw-bold">15</span>
+                  </div>
+                </div>
+
+                <!-- Card footer -->
+                <div class="card-footer bg-transparent border-top">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <!-- Rating star -->
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
+                      <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
+                      <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
+                      <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
+                      <li class="list-inline-item me-0 small"><i class="far fa-star text-warning"></i></li>
+                    </ul>
+                    <!-- Message button -->
+                    <a class="btn btn-link text-body p-0 mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Message" aria-label="Message">
+                      <i class="bi bi-envelope-fill"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Card item END -->
+          </div> <!-- Row END -->
+        </div>
+        <!-- Tabs content item END -->
+
+
+      </div>
+      <!-- Tabs content END -->
+    </div>
+    <!-- Card body END -->
+
+    <div class="card-footer bg-transparent pt-0">
+      <!-- Pagination START -->
+      <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
+        <!-- Content -->
+        <p class="mb-0 text-center text-sm-start">Showing 1 to {{page.size}} of {{page.totalElements}} entries</p>
+        <!-- Pagination -->
+        <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
+          <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+            <li class="page-item mb-0"><a class="page-link" (click)="getAll(page.number- 1,search.value)" tabindex="-1"><i
+              class="fas fa-angle-left"></i></a></li>
+            <li *ngIf="page.number!=0" class="page-item mb-0"><a class="page-link"
+                                                                 (click)="getAll(page.number-1,search.value)">{{page.number}}</a>
+            </li>
+            <li class="page-item mb-0 active"><a class="page-link">{{page.number + 1}}</a></li>
+            <li *ngIf="page.number+2<=page.totalPages" class="page-item mb-0"><a class="page-link"
+                                                                                 (click)="getAll(page.number+1,search.value)">{{page.number + 2}}</a>
+            </li>
+            <li class="page-item mb-0"><a class="page-link" (click)="getAll(page.number+1,search.value)"><i
+              class="fas fa-angle-right"></i></a></li>
+          </ul>
+        </nav>
+      </div>
+      <!-- Pagination END -->
+    </div>
+  </div>
+  <!-- Popup modal for reviwe START -->
+  <div class="modal fade" id="editInstructor" tabindex="-1" aria-labelledby="viewReviewLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <!-- Modal header -->
+        <div class="modal-header bg-dark">
+          <h5 class="modal-title text-white" id="viewReviewLabel">Edit Instructor</h5>
+          <button type="button" class="btn btn-sm btn-light mb-0" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <!-- Modal body -->
+        <form [formGroup]="editForm" (ngSubmit)="editInstructor(uploadFile1.files,search.value)" >
+        <div class="modal-body">
+          <div class="d-md-flex">
+            <div class="row g-4">
+            <!-- Avatar -->
+            <div class="col-12"hidden >
+              <label class="form-label">Instructor Name</label>
+              <input class="form-control" type="text" placeholder="Enter Instructor name" formControlName="idInstructor">
+            </div>
+              <div class="col-12" >
+                <label class="form-label">Instructor Name</label>
+                <input class="form-control" type="text" placeholder="Enter Instructor name" formControlName="nameInstructor">
+                <p *ngIf="editForm.get('nameInstructor')?.errors && editForm.get('nameInstructor')?.touched" style="color: red">Not required</p>
+              </div>
+            <div class="col-12" >
+              <label class="form-label">Instructor Phone</label>
+              <input class="form-control" type="text" placeholder="Enter Instructor Phone" formControlName="phoneInstructor">
+              <p *ngIf="editForm.get('phoneInstructor')?.errors && editForm.get('phoneInstructor')?.touched" style="color: red">Not required</p>
+            </div>
+            <div class="col-12" >
+              <label class="form-label">Instructor Mail</label>
+              <input class="form-control" type="mail" placeholder="Enter Instructor Mail" formControlName="emailInstructor">
+              <p *ngIf="editForm.get('emailInstructor')?.errors && editForm.get('emailInstructor')?.touched" style="color: red">Wrong email format</p>
+            </div>
+            <div class="col-12" >
+              <label class="form-label">Instructor Date Of Birth</label>
+              <input class="form-control" type="date" placeholder="Enter Instructor Birth" formControlName="dateOfBirthInstructor">
+              <p *ngIf="editForm.get('dateOfBirthInstructor')?.errors && editForm.get('dateOfBirthInstructor')?.touched" style="color: red">Not required</p>
+            </div>
+            <div class="col-12" >
+              <label class="form-label">Instructor Experience</label>
+              <input class="form-control" type="text" placeholder="Enter Instructor experience" formControlName="experience">
+              <p *ngIf="editForm.get('experience')?.errors && editForm.get('experience')?.touched" style="color: red">Not required</p>
+            </div>
+              <div class="col-12" >
+                <label class="form-label">Description</label>
+                <textarea class="form-control" type="text" placeholder="Enter description" formControlName="description"></textarea>
+                <p *ngIf="editForm.get('description')?.errors && editForm.get('description')?.touched" style="color: red">Not required</p>
+              </div>
+              <div class="col-12" >
+                <label class="form-label">Instructor Avatar</label>
+                <input class="form-control" type="file" #uploadFile1  formControlName="avatarInstructor">
+              </div>
+            </div>
+          </div>
+        </div>
+          <div class="modal-footer">
+
+            <button type="button" class="btn btn-danger-soft my-0" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success my-0" data-bs-dismiss="modal" >Save</button>
+          </div>
+        </form>
+        <!-- Modal footer -->
+
+      </div>
+    </div>
+  </div>
+  <!-- Popup modal for reviwe END -->
+  <div class="modal fade" id="createInstructor" tabindex="-1" aria-labelledby="viewReviewLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <!-- Modal header -->
+        <div class="modal-header bg-dark">
+          <h5 class="modal-title text-white" id="">Create Instructor</h5>
+          <button type="button" class="btn btn-sm btn-light mb-0" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <!-- Modal body -->
+        <form [formGroup]="createForm" (ngSubmit)="createInstructor(uploadFile2.files,search.value)" >
+          <div class="modal-body">
+            <div class="d-md-flex">
+              <div class="row g-4">
+                <div class="col-12" >
+                  <label class="form-label">Instructor Name</label>
+                  <input class="form-control" type="text" placeholder="Enter Instructor name" formControlName="nameInstructor">
+                  <p *ngIf="createForm.get('nameInstructor')?.errors && createForm.get('nameInstructor')?.touched" style="color: red">Not required</p>
+                </div>
+                <div class="col-12" >
+                  <label class="form-label">Instructor Phone</label>
+                  <input class="form-control" type="text" placeholder="Enter Instructor Phone" formControlName="phoneInstructor">
+                  <p *ngIf="createForm.get('phoneInstructor')?.errors && createForm.get('phoneInstructor')?.touched" style="color: red">Not required</p>
+                </div>
+                <div class="col-12" >
+                  <label class="form-label">Instructor Mail</label>
+                  <input class="form-control" type="email" placeholder="Enter Instructor Mail" formControlName="emailInstructor">
+                  <p *ngIf="createForm.get('emailInstructor')?.errors && createForm.get('emailInstructor')?.touched" style="color: red">Wrong email format</p>
+                </div>
+                <div class="col-12" >
+                  <label class="form-label">Instructor Date Of Birth</label>
+                  <input class="form-control" type="date" placeholder="Enter Instructor Birth" formControlName="dateOfBirthInstructor">
+                  <p *ngIf="createForm.get('dateOfBirthInstructor')?.errors && createForm.get('dateOfBirthInstructor')?.touched" style="color: red">Not required</p>
+                </div>
+                <div class="col-12" >
+                  <label class="form-label">Instructor Experience</label>
+                  <input class="form-control" type="text" placeholder="Enter Instructor experience" formControlName="experience">
+                  <p *ngIf="createForm.get('experience')?.errors && createForm.get('experience')?.touched" style="color: red">Not required</p>
+                </div>
+                <div class="col-12" >
+                  <label class="form-label">Description</label>
+                  <textarea class="form-control" type="text" placeholder="Enter description" formControlName="description"></textarea>
+                  <p *ngIf="createForm.get('description')?.errors && createForm.get('description')?.touched" style="color: red">Not required</p>
+
+                </div>
+                <div class="col-12" >
+                  <label class="form-label">Instructor Avatar</label>
+                  <input class="form-control" type="file" #uploadFile2 >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger-soft my-0" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success my-0" data-bs-dismiss="modal" >Save</button>
+          </div>
+        </form>
+        <!-- Modal footer -->
+
+      </div>
+    </div>
+  </div>
+  <!-- Card END -->
+</div>
+</div>
+<!-- Page main content END -->

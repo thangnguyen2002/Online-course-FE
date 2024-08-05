@@ -1,0 +1,277 @@
+<main>
+
+  <!-- Sidebar START -->
+  <nav class="navbar sidebar navbar-expand-xl navbar-dark bg-dark">
+
+    <app-navbarleft></app-navbarleft>
+  </nav>
+  <!-- Sidebar END -->
+
+  <!-- Page content START -->
+  <div class="page-content">
+
+    <!-- Top bar START -->
+    <app-navbartop></app-navbartop>
+    <!-- Top bar END -->
+
+    <!-- Page main content START -->
+    <div class="page-content-wrapper border">
+
+      <!-- Title -->
+      <div class="row mb-3">
+        <div class="col-12">
+          <h1 class="h3 mb-0">Earnings</h1>
+        </div>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <!-- Earning item -->
+        <div class="col-sm-6 col-lg-4">
+          <div class="p-4 bg-primary bg-opacity-10 rounded-3">
+            <h6>Sales this month</h6>
+            <h2 class="mb-0 fs-1 text-primary">$ {{totalBillInMonth}}</h2>
+          </div>
+        </div>
+
+        <!-- Earning item -->
+        <div class="col-sm-6 col-lg-4">
+          <div class="p-4 bg-purple bg-opacity-10 rounded-3">
+            <h6>Total Recharge
+              <a tabindex="0" class="h6 mb-0" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="top" data-bs-content="After US royalty withholding tax" data-bs-original-title="" title="">
+                <i class="bi bi-info-circle-fill small"></i>
+              </a>
+            </h6>
+            <h2 class="mb-0 fs-1 text-purple">$ {{totalRecharge}}</h2>
+          </div>
+        </div>
+
+        <!-- Earning item -->
+        <div class="col-sm-6 col-lg-4">
+          <div class="p-4 bg-orange bg-opacity-10 rounded-3">
+            <h6>Lifetime Earnings</h6>
+            <h2 class="mb-0 fs-1 text-orange">$ {{totalEarning}}</h2>
+          </div>
+        </div>
+      </div> <!-- Row END -->
+
+      <!-- All review table START -->
+      <div class="card bg-transparent border">
+
+        <div class="card-header bg-light border-bottom">
+          <h5 class="mb-0">Request Recharge</h5>
+        </div>
+        <!-- Card header END -->
+
+        <!-- Card body START -->
+        <div class="card-body pb-0">
+          <!-- Table START -->
+          <div class="table-responsive border-0">
+            <table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+              <!-- Table head -->
+              <thead>
+              <tr>
+                <th scope="col" class="border-0 rounded-start">#</th>
+                <th scope="col" class="border-0">Name User</th>
+                <th scope="col" class="border-0">Date</th>
+                <th scope="col" class="border-0">Payment Method</th>
+                <th scope="col" class="border-0">Amount</th>
+                <th scope="col" class="border-0 rounded-end">Action</th>
+              </tr>
+              </thead>
+
+              <!-- Table body START -->
+              <tbody>
+
+              <!-- Table row -->
+              <tr *ngFor="let r of reqRecharges | paginate: {id: 'pagination1',itemsPerPage: 6, currentPage: g},let j = index">
+                <!-- Table data -->
+                <td>{{j + 1}}</td>
+                <td>{{r.appUser.fullName}}</td>
+                <td>
+                  <h6>{{r.createAt}}</h6>
+                  <!--                  <img src="assets/images/client/mastercard.svg" class="h-50px" alt="">-->
+                </td>
+
+                <!-- Table data -->
+                <td>{{r.paymentMethod}}
+
+                </td>
+                <td>${{r.money}}</td>
+                <td>
+<!--                  <a  (click)="reChargeUser(r.money,r.appUser.idUser,r.idRequest)" class="btn btn-primary-soft me-1 mb-1 mb-md-0" data-bs-toggle="tooltip" data-bs-placement="top">-->
+<!--                    Confirm-->
+<!--                  </a>-->
+                  <a style="color:blue;" href="#aboutModal"  data-bs-toggle="modal" class="btn btn-primary-soft me-1 mb-1 mb-md-0" data-bs-target="#myModal" (click)="setInst(r)">Check</a>
+
+                </td>
+              </tr>
+
+              </tbody>
+              <!-- Table body END -->
+            </table>
+          </div>
+          <!-- Table END -->
+        </div>
+
+        <!-- Card body END -->
+
+        <!-- Card footer START -->
+        <div class="card-footer bg-transparent">
+          <!-- Pagination START -->
+          <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
+            <pagination-controls id="pagination1" class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0" class="myPagination" (pageChange)="g = $event">
+            </pagination-controls>
+            <!-- Content -->
+<!--            <p class="mb-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>-->
+<!--            &lt;!&ndash; Pagination &ndash;&gt;-->
+<!--            <nav class="d-flex justify-content-center mb-0" aria-label="navigation">-->
+<!--              <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">-->
+<!--                <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>-->
+<!--                <li class="page-item mb-0"><a class="page-link" href="#">1</a></li>-->
+<!--                <li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>-->
+<!--                <li class="page-item mb-0"><a class="page-link" href="#">3</a></li>-->
+<!--                <li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>-->
+<!--              </ul>-->
+<!--            </nav>-->
+          </div>
+          <!-- Pagination END -->
+        </div>
+
+        <!-- Card header START -->
+      </div>
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+           aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="myModalLabel">Request information</h3>
+            </div>
+            <div class="modal-body">
+              <h6 class="media-heading">User name: {{profileBill?.appUser.fullName}} </h6>
+
+              <hr>
+
+              <p class="text-left"><strong>Date: {{profileBill?.createAt}} </strong><br></p>
+              <p class="text-left"><strong>PaymentMethod: {{profileBill?.paymentMethod}} </strong><br></p>
+              <p class="text-left"><strong>Amount: {{profileBill?.money}} </strong><br></p>
+              <br>
+              <div class="modal-footer">
+              <button type="button" class="btn btn-danger-soft me-1 mb-1 mb-md-0" data-bs-dismiss="modal">Close</button>
+                <a  class="btn btn-danger-soft me-1 mb-1 mb-md-0" data-bs-dismiss="modal" (click)="confirm(profileBill.idRequest)" >Cancel</a>
+
+                <a  (click)="reChargeUser(profileBill.money,profileBill.appUser.idUser,profileBill.idRequest)" class="btn btn-success-soft me-1 mb-1 mb-md-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-dismiss="modal" > Confirm</a>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <!-- Pagination END -->
+      </div>
+      <div><br></div>
+        <div class="card bg-transparent border">
+        <div class="card-header bg-light border-bottom">
+          <h5 class="mb-0">Invoice History</h5>
+        </div>
+        <!-- Card header END -->
+
+        <!-- Card body START -->
+        <div class="card-body pb-0">
+          <!-- Table START -->
+          <div class="table-responsive border-0">
+            <table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+              <!-- Table head -->
+              <thead>
+              <tr>
+                <th scope="col" class="border-0 rounded-start">#</th>
+                <th scope="col" class="border-0">Content </th>
+                <th scope="col" class="border-0">Name User</th>
+                <th scope="col" class="border-0">Date</th>
+                <th scope="col" class="border-0">Payment Method</th>
+                <th scope="col" class="border-0">Amount</th>
+                <th scope="col" class="border-0">Status</th>
+                <th scope="col" class="border-0 rounded-end">Action</th>
+              </tr>
+              </thead>
+
+              <!-- Table body START -->
+              <tbody>
+
+              <!-- Table row -->
+              <tr *ngFor="let b of bill | paginate: {id: 'pagination2',itemsPerPage:3, currentPage: p},let i = index ">
+                <!-- Table data -->
+                <td>{{ i + 1}}</td>
+
+                <!-- Table data -->
+                <td>
+                  <h6 class="table-responsive-title mb-0"><a href="#">{{b.contentBill}}</a></h6>
+                </td>
+
+                <!-- Table data -->
+                <td>{{b.appUser.fullName}}</td>
+
+                <!-- Table data -->
+                <td>
+                  <h6>{{b.createAt}}</h6>
+<!--                  <img src="assets/images/client/mastercard.svg" class="h-50px" alt="">-->
+                </td>
+
+                <!-- Table data -->
+                <td>{{b.paymentMethod}}
+
+                </td>
+                <td>${{b.totalBill}}</td>
+
+                <!-- Table data -->
+                <td>
+                  <div *ngIf="b.status == true" class="badge bg-success bg-opacity-10 text-success">Success</div>
+                  <div *ngIf="b.status == false" class="badge bg-success bg-opacity-10 text-warning">Fail</div>
+                </td>
+
+                <!-- Table data -->
+                <td>
+                  <a href="#" class="btn btn-primary-soft btn-round me-1 mb-1 mb-md-0" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Download" aria-label="Download">
+                    <i class="bi bi-download"></i>
+                  </a>
+                </td>
+              </tr>
+
+              </tbody>
+              <!-- Table body END -->
+            </table>
+          </div>
+          <!-- Table END -->
+        </div>
+        <!-- Card body END -->
+
+        <!-- Card footer START -->
+        <div class="card-footer bg-transparent">
+          <!-- Pagination START -->
+          <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
+
+            <pagination-controls id="pagination2" class="btn btn-sm btn-outline-primary" class="myPagination" (pageChange)="p = $event" >
+            </pagination-controls>
+            <!-- Content -->
+<!--            <p class="mb-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>-->
+<!--            &lt;!&ndash; Pagination &ndash;&gt;-->
+<!--            <nav class="d-flex justify-content-center mb-0" aria-label="navigation">-->
+<!--              <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">-->
+<!--                <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>-->
+<!--                <li class="page-item mb-0"><a class="page-link" href="#">1</a></li>-->
+<!--                <li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>-->
+<!--                <li class="page-item mb-0"><a class="page-link" href="#">3</a></li>-->
+<!--                <li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>-->
+<!--              </ul>-->
+<!--            </nav>-->
+          </div>
+          <!-- Pagination END -->
+        </div>
+        <!-- Card footer END -->
+      </div>
+      <!-- All review table END -->
+    </div>
+    <!-- Page main content END -->
+  </div>
+  <!-- Page content END -->
+
+</main>

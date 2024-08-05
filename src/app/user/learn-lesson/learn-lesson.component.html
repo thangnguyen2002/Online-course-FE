@@ -1,0 +1,104 @@
+<main>
+
+  <section class="py-0 bg-dark position-relative">
+
+    <div class="row g-0">
+      <div class="d-flex">
+        <div class="overflow-hidden fullscreen-video w-100">
+          <!-- Full screen video START -->
+          <div class="video-player rounded-3">
+            <video (play)="play(videoElement.duration)" (pause)="pause()" #videoElement  id="video"  src="{{lesson[0]?.linkVideo}}"
+                   width="1000" height="800" controls>
+            </video>
+          </div>
+          <!-- Full screen video END -->
+
+          <!-- Plyr resources and browser polyfills are specified in the pen settings -->
+        </div>
+
+        <!-- Page content START -->
+        <div class="justify-content-end position-relative">
+          <!-- Collapse button START -->
+          <button class="navbar-toggler btn btn-white mt-4 plyr-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+					<span class="navbar-toggler-animation">
+						<span></span>
+						<span></span>
+						<span></span>
+					</span>
+          </button>
+          <!-- Collapse button END -->
+
+          <!-- Collapse body START -->
+          <div class="collapse collapse-horizontal" id="collapseWidthExample">
+            <div class="card vh-100 overflow-auto rounded-0 w-280px w-sm-400px">
+              <!-- Title -->
+              <div class="card-header bg-light rounded-0">
+                <h1 class="mt-2 fs-5">{{course.nameCourse}}</h1>
+                <br>
+                <h6 class="mb-0 fw-normal">Instructor: {{course.instructor.nameInstructor}}</h6>
+                <br><h6>Lesson progress: {{completionProgress}} / {{totalLesson}}</h6>
+              </div>
+
+              <!-- Course content START -->
+              <div class="card-body">
+                <hr> <!-- Divider -->
+                <!-- Course START -->
+                <div class="row" *ngFor="let l of lesson, let i = index">
+                  <div class="col-12">
+                    <!-- Accordion START -->
+                    <div class="accordion accordion-flush-light accordion-flush" id="accordionExample">
+                      <!-- Item -->
+                      <div class="accordion-item">
+
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                          <div class="accordion-body px-3">
+                            <div class="vstack gap-3">
+                              <!-- Course lecture -->
+                              <div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                  <div class="position-relative d-flex align-items-center">
+                                    <a (click)="learn(l.linkVideo,l.idLesson)"  class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
+                                      <i class="fas fa-play me-0"></i>
+                                    </a>
+                                    <span class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px">{{l.nameLesson}}</span>
+                                  </div>
+                                  <p class="mb-0 text-truncate">{{l.timeLesson}}</p>
+                                </div>
+
+                                <!-- Done button -->
+                                <div style="display: flex;justify-content: space-between">
+                                  <a class="btn btn-xs btn-warning" data-bs-toggle="collapse" (click)="lessonLearned(l.idLesson)" role="button" aria-expanded="false" aria-controls="addnote-1">Done</a>
+                                  <i *ngIf="checkLessonLearn(l.nameLesson) == true" style="font-size: 25px;color: green" class="fas fa-check "></i>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+                      <!-- Item -->
+                    </div>
+                    <!-- Accordion END -->
+                  </div>
+                </div>
+                <!-- Course END -->
+              </div>
+
+
+              <div class="card-footer">
+                <div class="d-grid">
+                  <a [href]="'/user/course-resume/'+course.idCourse" class="btn btn-primary-soft mb-0">Back to course</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Collapse body END -->
+        </div>
+        <!-- Page content END -->
+      </div>
+    </div>
+  </section>
+</main>

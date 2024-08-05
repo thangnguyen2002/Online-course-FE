@@ -1,0 +1,99 @@
+<header class="navbar-light navbar-sticky header-static">
+  <!-- Logo Nav START -->
+  <nav class="navbar navbar-expand-xl">
+    <div class="container">
+      <!-- Logo START -->
+      <a class="navbar-brand" href="">
+        <img class="light-mode-item navbar-brand-item" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Nintendo_Switch_Online_logo.svg/1280px-Nintendo_Switch_Online_logo.svg.png" alt="logo">
+        <img class="dark-mode-item navbar-brand-item" src="assets/images/logo-light.svg" alt="logo">
+      </a>
+      <a href="/user" *ngIf="!checkLogIn() && checkRole()" class="navbar-brand" style="margin-left: 20px;margin-top: 3px"><i
+        class="bi bi-book"></i> Learn course</a>
+
+      <!-- Logo END -->
+
+      <!-- Responsive navbar toggler -->
+      <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+              aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-animation">
+					<span></span>
+					<span></span>
+					<span></span>
+				</span>
+      </button>
+
+      <!-- Main navbar START -->
+      <div class="navbar-collapse w-100 collapse" id="navbarCollapse">
+
+        <!-- Nav Main menu START -->
+        <ul class="navbar-nav navbar-nav-scroll mx-auto">
+        </ul>
+        <div class="nav my-3 my-xl-0 px-4 flex-nowrap align-items-center">
+          <div class="nav-item w-100">
+            <form class="position-relative">
+              <a href="/login" *ngIf="checkLogIn()" style="width: 120px;font-size: 18px;"
+                 class="btn mb-3 font-base bg-primary bg-opacity-10 text-primary py-2 px-4 rounded-2 d-inline-block position-absolute top-50 end-0 translate-middle-y"><i
+                class="bi bi-box-arrow-in-right"></i> Login</a>
+            </form>
+          </div>
+        </div>
+        <!-- Nav Search END -->
+      </div>
+      <!-- Main navbar END -->
+
+      <!-- ChangeProfileUser START -->
+      <div class="dropdown ms-1 ms-lg-0">
+        <a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside"
+           data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
+          <img class="avatar-img rounded-circle" id="avatar"
+               src="{{profile?.avatarSrc || 'https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png'}}"
+               alt="avatar">
+        </a>
+        <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
+          <!-- ChangeProfileUser info -->
+          <li class="px-3">
+            <div class="d-flex align-items-center">
+              <!-- Avatar -->
+              <div class="avatar">
+                <img class="avatar-img rounded-circle shadow"
+                     src="{{profile?.avatarSrc || 'https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png'}}"
+                     alt="avatar">
+              </div>
+              <div>
+                <a class="h6" href="#">{{profile?.fullName || "user"}}</a>
+
+                <p class="small m-0">{{profile?.email || "example@gmail.com"}}</p>
+              </div>
+            </div>
+            <br>
+          <li>
+            <i style="color: green ;font-size: 20px;margin-left: 20px" *ngIf="!checkLogIn() && checkAdmin()"
+               class="bi bi-cash-coin"> </i><strong *ngIf="!checkLogIn() && checkAdmin()"
+                                                    style="margin-left: 10px;margin-bottom: 10px">  {{wallet?.money}}
+            $</strong>
+
+          </li>
+          <li><a class="dropdown-item" *ngIf="!checkLogIn() && checkAdmin()" href="/user/payment"><i
+            class="bi bi-currency-dollar fa-fw me-2"></i>Recharge</a></li>
+          <hr>
+          <!-- Links -->
+          <li><a class="dropdown-item" (click)="checkProfile()"><i class="bi bi-person fa-fw me-2"></i>Dash Board</a>
+          </li>
+          <!--          <li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>-->
+          <!--          <li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>-->
+          <li><a class="dropdown-item bg-danger-soft-hover" *ngIf="!checkLogIn()" (click)="signOut()"><i
+            class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <!-- Dark mode switch START -->
+          <!-- Dark mode switch END -->
+        </ul>
+
+      </div>
+      <!-- ChangeProfileUser START -->
+    </div>
+  </nav>
+  <!-- Logo Nav END -->
+</header>

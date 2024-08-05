@@ -1,0 +1,172 @@
+
+<main>
+
+  <!-- Page content START -->
+  <div class="page-content">
+    <app-navbarleft></app-navbarleft>
+    <app-navbartop></app-navbartop>
+    <!-- Page main content START -->
+    <div class="page-content-wrapper border">
+
+      <!-- Title -->
+      <div class="row mb-3">
+        <div class="col-12">
+          <h1 class="h3 mb-0">Reviews</h1>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <form class="rounded position-relative">
+          <input class="form-control bg-transparent" type="search" placeholder="Search" aria-label="Search"
+                 ng-model="usersSearch" #search (input)="getAll(page.number,search.value)" >
+          <button class="btn bg-transparent px-2 py-0 position-absolute top-50 end-0 translate-middle-y"
+                  type="submit"><i class="fas fa-search fs-6 "></i></button>
+        </form>
+      </div>
+
+      <!-- All review table START -->
+      <div class="card card-body bg-transparent pb-0 border mb-4">
+
+        <!-- Table START -->
+        <div class="table-responsive border-0">
+          <table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+            <!-- Table head -->
+            <thead>
+            <tr>
+              <th scope="col" class="border-0 rounded-start">#</th>
+              <th scope="col" class="border-0">Student Name</th>
+              <th scope="col" class="border-0">Course Name</th>
+              <th scope="col" class="border-0">Rating</th>
+              <th scope="col" class="border-0 rounded-end">Action</th>
+            </tr>
+            </thead>
+
+            <!-- Table body START -->
+            <tbody>
+
+            <!-- Table row -->
+            <tr *ngFor="let rt of ratings;let i=index">
+              <!-- Table data -->
+              <td>{{i+1}}</td>
+
+              <!-- Table data -->
+              <td>
+                <div class="d-flex align-items-center position-relative">
+                  <!-- Image -->
+                  <div class="avatar avatar-xs mb-2 mb-md-0">
+                    <img src="{{rt.appUser.avatarSrc}}" class="rounded-circle" alt="">
+                  </div>
+                  <div class="mb-0 ms-2">
+                    <!-- Title -->
+                    <h6 class="mb-0"><a href="#" class="stretched-link">{{rt.appUser.fullName}}</a></h6>
+                  </div>
+                </div>
+              </td>
+
+              <!-- Table data -->
+              <td>
+                <h6 class="table-responsive-title mb-0"><a>{{rt.course.nameCourse}}</a></h6>
+              </td>
+
+              <!-- Table data -->
+              <td>
+                <ul class="list-inline mb-0">
+                  <li *ngFor='let s of counter(rt.numStar) ;let i = index' class="list-inline-item me-0 small"><i
+                    class="fas fa-star text-warning"></i></li>
+                  <li *ngFor="let s of counter(5-rt.numStar)" class="list-inline-item me-0 small"><i
+                    class="far fa-star text-warning"></i></li>
+                </ul>
+              </td>
+
+
+              <!-- Table data -->
+              <td>
+                <button  class="btn btn-sm btn-success mb-0" *ngIf="rt.statusRating==false"(click)="approval(rt.idRating,page.number,search.value)" >Approval</button>
+                <button style="margin-left:10px " class="btn btn-sm btn-danger mb-0" *ngIf="rt.statusRating==true" (click)="disable(rt.idRating,page.number,search.value)">Disable</button>
+                <button style="margin-left:10px " class="btn btn-sm btn-danger-soft me-1 mb-1 mb-md-0" (click)="confirmDelete(rt.idRating,page.number,search.value)">Delete</button>
+                <a style="margin-left:5px " class="btn btn-sm btn-info-soft mb-0" data-bs-toggle="modal" data-bs-target="#viewReview" (click)="showRate(rt)">View</a>
+              </td>
+            </tr>
+
+            </tbody>
+            <!-- Table body END -->
+          </table>
+        </div>
+        <!-- Table END -->
+
+        <!-- Card footer START -->
+        <div class="card-footer bg-transparent pt-0">
+          <!-- Pagination START -->
+          <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
+            <!-- Content -->
+            <p class="mb-0 text-center text-sm-start">Showing 1 to {{page?.size}} of {{page?.totalElements}} entries</p>
+            <!-- Pagination -->
+            <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
+              <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+                <li class="page-item mb-0"><a class="page-link" (click)="getAll(page.number- 1,search.value)" tabindex="-1"><i
+                  class="fas fa-angle-left"></i></a></li>
+                <li *ngIf="page.number!=0" class="page-item mb-0"><a class="page-link"
+                                                                     (click)="getAll(page.number-1,search.value)">{{page?.number}}</a>
+                </li>
+                <li class="page-item mb-0 active"><a class="page-link">{{page.number + 1}}</a></li>
+                <li *ngIf="page.number+2<=page.totalPages" class="page-item mb-0"><a class="page-link"
+                                                                                     (click)="getAll(page.number+1,search.value)">{{page.number + 2}}</a>
+                </li>
+                <li class="page-item mb-0"><a class="page-link" (click)="getAll(page.number+1,search.value)"><i
+                  class="fas fa-angle-right"></i></a></li>
+              </ul>
+            </nav>
+          </div>
+          <!-- Pagination END -->
+        </div>
+        <!-- Card footer END -->
+      </div>
+      <!-- All review table END -->
+
+
+    </div>
+    <!-- Page main content END -->
+  </div>
+  <!-- Page content END -->
+  <!-- Popup modal for reviwe START -->
+  <div class="modal fade" id="viewReview" tabindex="-1" aria-labelledby="viewReviewLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <!-- Modal header -->
+        <div class="modal-header bg-dark">
+          <h5 class="modal-title text-white" id="viewReviewLabel">Review</h5>
+          <button type="button" class="btn btn-sm btn-light mb-0" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="d-md-flex">
+            <!-- Avatar -->
+            <div class="avatar avatar-md me-4 flex-shrink-0">
+              <img class="avatar-img rounded-circle" src="{{rate.appUser.avatarSrc}}" alt="avatar">
+            </div>
+            <!-- Text -->
+            <div>
+              <div class="d-sm-flex mt-1 mt-md-0 align-items-center">
+                <h5 class="me-3 mb-0">{{rate.appUser.fullName}}</h5>
+                <!-- Review star -->
+                <ul class="list-inline mb-0">
+                  <li *ngFor='let s of counter(rate.numStar) ;let i = index' class="list-inline-item me-0 small"><i
+                    class="fas fa-star text-warning"></i></li>
+                  <li *ngFor="let s of counter(5-rate.numStar)" class="list-inline-item me-0 small"><i
+                    class="far fa-star text-warning"></i></li>
+                </ul>
+              </div>
+              <!-- Info -->
+              <p class="mb-2">{{rate.contentRating}} </p>
+
+            </div>
+          </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger-soft my-0" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Popup modal for reviwe END -->
+</main>
