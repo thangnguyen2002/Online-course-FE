@@ -16,8 +16,8 @@ import {Stomp} from "@stomp/stompjs";
 })
 export class AdminEarningComponent implements OnInit,OnChanges {
 bill:Bill[] =[]
-  totalEarning:number = 0
   totalRecharge: number = 0
+  totalAll: number = 0
   totalBillInMonth:any
   reqRecharges:any
   billFail:number = 0
@@ -36,14 +36,14 @@ bill:Bill[] =[]
       this.bill = data
       for (const b of data) {
         if(b.status == true){
-          if(b.contentBill == "Recharge"){
+          this.totalAll += b.totalBill;
+          if(b.contentBill == "Banking VNPAY"){
             this.totalRecharge += b.totalBill
-          } else this.totalEarning += b.totalBill
-        }
-        if(b.status == false) this.billFail += b.totalBill
+          }
+        }else  this.billFail += b.totalBill
       }
       this.billService.getTotalBillInMonth().subscribe((data)=>{
-        this.totalBillInMonth = data.totalBillInMonth - this.totalRecharge - this.billFail
+        this.totalBillInMonth = data.totalBillInMonth  - this.billFail
     })
 
     })
