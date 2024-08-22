@@ -69,19 +69,48 @@ export class ShowUserComponent implements OnInit, OnChanges {
   })
   }
 
+  onSubmit(event: Event) {
+    event.preventDefault();  // Ngăn chặn form tự động submit và refresh trang
+    // Bạn có thể thêm logic khác tại đây nếu cần
+  }
+
+  // search(input: any) {
+  //   this.userProfileService.getProfiles(this.page).subscribe((data) => {
+  //     let usersSearch: AppUser[] = []
+  //     for (const d of data) {
+  //       if (d.fullName.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  //         .replace(/đ/g, 'd').replace(/Đ/g, 'D').includes(input.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  //           .replace(/đ/g, 'd').replace(/Đ/g, 'D'))) {
+  //         usersSearch.push(d)
+  //       }
+  //     }
+  //     this.appUsers = usersSearch;
+  //     console.log('appUser: ', this.appUsers);
+      
+  //   })
+  // }
+
   search(input: any) {
     this.userProfileService.getProfiles(this.page).subscribe((data) => {
-      let usersSearch: AppUser[] = []
-      for (const d of data) {
-        if (d.fullName.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-          .replace(/đ/g, 'd').replace(/Đ/g, 'D').includes(input.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-            .replace(/đ/g, 'd').replace(/Đ/g, 'D'))) {
-          usersSearch.push(d)
+        let usersSearch: AppUser[] = [];
+        const normalizedInput = input.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                                    .replace(/đ/g, 'd').replace(/Đ/g, 'D');
+        
+        for (const d of data) {
+            if (d.fullName) { // Kiểm tra nếu fullName không phải null
+                const normalizedFullName = d.fullName.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                    .replace(/đ/g, 'd').replace(/Đ/g, 'D');
+                if (normalizedFullName.includes(normalizedInput)) {
+                    usersSearch.push(d);
+                }
+            }
         }
-      }
-      this.appUsers = usersSearch;
-    })
-  }
+        this.appUsers = usersSearch;
+        console.log('appUsers: ', this.appUsers);
+    });
+}
+
+
   messageActivated (){
     Swal.fire({
       position: 'center',
