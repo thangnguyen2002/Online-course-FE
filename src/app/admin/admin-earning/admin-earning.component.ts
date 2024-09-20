@@ -8,6 +8,7 @@ import {AppUser} from "../../model/AppUser";
 import Swal from "sweetalert2";
 import {DatePipe} from "@angular/common";
 import {Stomp} from "@stomp/stompjs";
+import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-admin-earning',
@@ -16,6 +17,7 @@ import {Stomp} from "@stomp/stompjs";
 })
 export class AdminEarningComponent implements OnInit,OnChanges {
 bill:Bill[] =[]
+  chart: any;
   totalRecharge: number = 0
   totalAll: number = 0
   totalBillInMonth:any
@@ -43,9 +45,14 @@ bill:Bill[] =[]
         }else  this.billFail += b.totalBill
       }
       this.billService.getTotalBillInMonth().subscribe((data)=>{
-        this.totalBillInMonth = data.totalBillInMonth  - this.billFail
-    })
+        // this.totalBillInMonth = data.totalBillInMonth  - this.billFail
+        this.totalBillInMonth = data.totalBillInMonth
+        console.log('billMonth:',this.totalBillInMonth);
+        
+        this.createChart();
 
+    })
+    
     })
     this.reqRechargeService.getAll().subscribe((data)=>{
       this.reqRecharges = data
@@ -57,6 +64,41 @@ bill:Bill[] =[]
       console.log('script loaded ', data);
     }).catch(error => console.log(error));
     this.connect()
+
+  }
+
+  createChart(){
+    // Lấy tên tháng hiện tại
+    const currentMonth = new Date().toLocaleString('default', { month: 'long' }); 
+
+    this.chart = new Chart("MyChart", {
+      type: 'bar', //this denotes tha type of chart
+
+      data: {// values on X-Axis
+        labels:[''], 
+           datasets: [
+          {
+            label: "Total All",
+            data: [this.totalAll],
+            backgroundColor: 'blue'
+          },
+          {
+            label: "Total Vnpay",
+            data: [this.totalRecharge],
+            backgroundColor: 'limegreen'
+          },
+          {
+            label: `Total In ${currentMonth}`,
+            data: [this.totalBillInMonth],
+            backgroundColor: '#FFA500'
+          }  
+        ]
+      },
+      options: {
+        aspectRatio:2.5
+      }
+
+    });
   }
 
   reChargeUser(money:any,idUser:any,idReq:any){
