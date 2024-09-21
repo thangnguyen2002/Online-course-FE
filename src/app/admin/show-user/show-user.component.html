@@ -34,7 +34,7 @@
 
           <!-- Search bar -->
           <div class="col-md-8">
-            <form class="rounded position-relative">
+            <form class="rounded position-relative" (submit)="onSubmit($event)">
               <input class="form-control bg-transparent" type="search" placeholder="Search" aria-label="Search"
                      ng-model="usersSearch" #input (input)="search(input.value)">
               <button class="btn bg-transparent px-2 py-0 position-absolute top-50 end-0 translate-middle-y"

@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import { LoginService } from '../service/login.service';
 import {Router} from "@angular/router";
 import Swal from "sweetalert2";
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-user-register',
@@ -28,18 +29,35 @@ export class UserRegisterComponent implements OnInit {
     confirmPassword: new FormControl("", [Validators.required, Validators.minLength(6)])
   })
 
-  register(){
-    this.isLoading = true;  // Thêm biến isLoading
-    this.loginService.register(this.registerForm.value).subscribe((data)=>{
-      this.checkDuplicateUsername=data[0];
-      this.checkDuplicateMail=data[1];
-      if (data[0]&&data[1]){
-        this.message()
-        this.router.navigate(["/login"])
+  // register(){
+  //   this.isLoading = true;  // Thêm biến isLoading
+  //   this.loginService.register(this.registerForm.value).subscribe((data)=>{
+  //     this.checkDuplicateUsername=data[0];
+  //     this.checkDuplicateMail=data[1];
+  //     if (data[0]&&data[1]){
+  //       this.message()
+  //       this.router.navigate(["/login"])
+  //     }
+  //     this.isLoading = false;
+  //   });
+  // }
+  async register() {
+    this.isLoading = true;
+    try {
+      const data = await firstValueFrom(this.loginService.register(this.registerForm.value));
+      this.checkDuplicateUsername = data[0];
+      this.checkDuplicateMail = data[1];
+      if (this.checkDuplicateUsername && this.checkDuplicateMail) {
+        this.message();
+        this.router.navigate(["/login"]);
       }
+    } catch (error) {
+      console.error('Registration error:', error);
+    } finally {
       this.isLoading = false;
-    });
+    }
   }
+
   message (){
     Swal.fire({
       position: 'center',

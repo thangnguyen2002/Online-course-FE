@@ -24,17 +24,17 @@
         </div>
       </div>
 
-      <div class="row g-4 mb-4">
+      <!-- <div class="row g-4 mb-4">
         <div class="col-sm-6 col-lg-4">
           <div class="p-4 bg-orange bg-opacity-10 rounded-3">
             <h6>Total ALL</h6>
             <h2 class="mb-0 fs-1 text-orange">$ {{totalAll}}</h2>
           </div>
-        </div>
+        </div> -->
         
 
         <!-- Earning item -->
-        <div class="col-sm-6 col-lg-4">
+        <!-- <div class="col-sm-6 col-lg-4">
           <div class="p-4 bg-purple bg-opacity-10 rounded-3">
             <h6>Total VNPAY ALL
               <a tabindex="0" class="h6 mb-0" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="top" data-bs-content="After US royalty withholding tax" data-bs-original-title="" title="">
@@ -51,7 +51,12 @@
             <h2 class="mb-0 fs-1 text-primary">$ {{totalBillInMonth}}</h2>
           </div>
         </div>        
-      </div> <!-- Row END -->
+      </div>  -->
+      <!-- Row END -->
+
+      <div class="chart-container">
+        <canvas  id="MyChart" >{{ chart }}</canvas>
+      </div>
 
       <!-- All review table START -->
       <div class="card bg-transparent border">

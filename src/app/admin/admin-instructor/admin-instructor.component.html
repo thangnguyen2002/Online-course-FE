@@ -171,32 +171,32 @@
               <input class="form-control" type="text" placeholder="Enter Instructor name" formControlName="idInstructor">
             </div>
               <div class="col-12" >
-                <label class="form-label">Instructor Name</label>
+                <label class="form-label">Instructor Name <span class="req">*</span></label>
                 <input class="form-control" type="text" placeholder="Enter Instructor name" formControlName="nameInstructor">
                 <p *ngIf="editForm.get('nameInstructor')?.errors && editForm.get('nameInstructor')?.touched" style="color: red">Not required</p>
               </div>
             <div class="col-12" >
-              <label class="form-label">Instructor Phone</label>
+              <label class="form-label">Instructor Phone <span class="req">*</span></label>
               <input class="form-control" type="text" placeholder="Enter Instructor Phone" formControlName="phoneInstructor">
               <p *ngIf="editForm.get('phoneInstructor')?.errors && editForm.get('phoneInstructor')?.touched" style="color: red">Not required</p>
             </div>
             <div class="col-12" >
-              <label class="form-label">Instructor Mail</label>
+              <label class="form-label">Instructor Mail <span class="req">*</span></label>
               <input class="form-control" type="mail" placeholder="Enter Instructor Mail" formControlName="emailInstructor">
               <p *ngIf="editForm.get('emailInstructor')?.errors && editForm.get('emailInstructor')?.touched" style="color: red">Wrong email format</p>
             </div>
             <div class="col-12" >
-              <label class="form-label">Instructor Date Of Birth</label>
+              <label class="form-label">Instructor Date Of Birth <span class="req">*</span></label>
               <input class="form-control" type="date" placeholder="Enter Instructor Birth" formControlName="dateOfBirthInstructor">
               <p *ngIf="editForm.get('dateOfBirthInstructor')?.errors && editForm.get('dateOfBirthInstructor')?.touched" style="color: red">Not required</p>
             </div>
             <div class="col-12" >
-              <label class="form-label">Instructor Experience</label>
+              <label class="form-label">Instructor Experience <span class="req">*</span></label>
               <input class="form-control" type="text" placeholder="Enter Instructor experience" formControlName="experience">
               <p *ngIf="editForm.get('experience')?.errors && editForm.get('experience')?.touched" style="color: red">Not required</p>
             </div>
               <div class="col-12" >
-                <label class="form-label">Description</label>
+                <label class="form-label">Description <span class="req">*</span></label>
                 <textarea class="form-control" type="text" placeholder="Enter description" formControlName="description"></textarea>
                 <p *ngIf="editForm.get('description')?.errors && editForm.get('description')?.touched" style="color: red">Not required</p>
               </div>
@@ -233,32 +233,32 @@
             <div class="d-md-flex">
               <div class="row g-4">
                 <div class="col-12" >
-                  <label class="form-label">Instructor Name</label>
+                  <label class="form-label">Instructor Name <span class="req">*</span></label>
                   <input class="form-control" type="text" placeholder="Enter Instructor name" formControlName="nameInstructor">
                   <p *ngIf="createForm.get('nameInstructor')?.errors && createForm.get('nameInstructor')?.touched" style="color: red">Not required</p>
                 </div>
                 <div class="col-12" >
-                  <label class="form-label">Instructor Phone</label>
+                  <label class="form-label">Instructor Phone <span class="req">*</span></label>
                   <input class="form-control" type="text" placeholder="Enter Instructor Phone" formControlName="phoneInstructor">
                   <p *ngIf="createForm.get('phoneInstructor')?.errors && createForm.get('phoneInstructor')?.touched" style="color: red">Not required</p>
                 </div>
                 <div class="col-12" >
-                  <label class="form-label">Instructor Mail</label>
+                  <label class="form-label">Instructor Mail <span class="req">*</span></label>
                   <input class="form-control" type="email" placeholder="Enter Instructor Mail" formControlName="emailInstructor">
                   <p *ngIf="createForm.get('emailInstructor')?.errors && createForm.get('emailInstructor')?.touched" style="color: red">Wrong email format</p>
                 </div>
                 <div class="col-12" >
-                  <label class="form-label">Instructor Date Of Birth</label>
+                  <label class="form-label">Instructor Date Of Birth <span class="req">*</span></label>
                   <input class="form-control" type="date" placeholder="Enter Instructor Birth" formControlName="dateOfBirthInstructor">
                   <p *ngIf="createForm.get('dateOfBirthInstructor')?.errors && createForm.get('dateOfBirthInstructor')?.touched" style="color: red">Not required</p>
                 </div>
                 <div class="col-12" >
-                  <label class="form-label">Instructor Experience</label>
+                  <label class="form-label">Instructor Experience <span class="req">*</span></label>
                   <input class="form-control" type="text" placeholder="Enter Instructor experience" formControlName="experience">
                   <p *ngIf="createForm.get('experience')?.errors && createForm.get('experience')?.touched" style="color: red">Not required</p>
                 </div>
                 <div class="col-12" >
-                  <label class="form-label">Description</label>
+                  <label class="form-label">Description <span class="req">*</span></label>
                   <textarea class="form-control" type="text" placeholder="Enter description" formControlName="description"></textarea>
                   <p *ngIf="createForm.get('description')?.errors && createForm.get('description')?.touched" style="color: red">Not required</p>
 
